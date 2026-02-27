@@ -35,7 +35,11 @@ import { GenerationTaskList } from '@/components/canvas/generation-task-list';
 import { getCanvasLayout } from '@/lib/canvas-layout';
 import type { WorkflowNodeData } from '@/types/canvas';
 
-const nodeTypes = {
+// Pro options for ReactFlow (hide attribution)
+const PRO_OPTIONS = Object.freeze({ hideAttribution: true });
+
+// Node types mapping (frozen to prevent accidental modification)
+const nodeTypes = Object.freeze({
   entry: EntryNode,
   checkpoint: CheckPointNode,
   storybible: StoryBibleNode,
@@ -45,7 +49,7 @@ const nodeTypes = {
   scenedesign: SceneDesignNode,
   segmentdesign: SegmentDesignNode,
   compose: ComposeNode,
-};
+});
 
 export default function CanvasPage() {
   return (
@@ -247,7 +251,7 @@ const CanvasInner = React.memo(function CanvasInner() {
             fitViewOptions={{ padding: 0.3 }}
             minZoom={0.3}
             maxZoom={2}
-            proOptions={{ hideAttribution: true }}
+            proOptions={PRO_OPTIONS}
           >
             <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="rgba(255,255,255,0.05)" />
             <Controls position="bottom-right" />
