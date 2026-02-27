@@ -2,12 +2,13 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useProjectStore } from '@/stores/project-store';
 import { PROJECT_TYPE_LABELS, formatTime } from '@/lib/utils';
-import { Plus, Coins, FolderOpen } from 'lucide-react';
+import { Plus, Coins, FolderOpen, Home, Palette } from 'lucide-react';
 
 export default function ProjectsPage() {
   const router = useRouter();
@@ -67,7 +68,7 @@ export default function ProjectsPage() {
                 {/* Cover */}
                 <div className="aspect-video bg-gradient-to-br from-muted to-secondary flex items-center justify-center">
                   {project.drama_cover ? (
-                    <img src={project.drama_cover} alt="" className="w-full h-full object-cover" />
+                    <Image src={project.drama_cover} alt={project.series_title} fill className="object-cover" />
                   ) : (
                     <div className="text-3xl opacity-20">🎬</div>
                   )}
@@ -89,22 +90,25 @@ export default function ProjectsPage() {
       </main>
 
       {/* Bottom Tab Bar */}
-      <nav className="border-t border-border px-6 py-2 flex justify-around">
+      <nav className="border-t border-white/10 px-6 py-2 flex justify-around bg-black/50 backdrop-blur-sm">
         {[
-          { label: '首页', icon: '🏠', active: true },
-          { label: '存档', icon: '📁', active: false },
-          { label: '资产', icon: '🎨', active: false },
-        ].map((tab) => (
-          <button
-            key={tab.label}
-            className={`flex flex-col items-center gap-0.5 px-4 py-1 text-xs cursor-pointer ${
-              tab.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <span className="text-lg">{tab.icon}</span>
-            {tab.label}
-          </button>
-        ))}
+          { label: '首页', icon: Home, active: true },
+          { label: '存档', icon: FolderOpen, active: false },
+          { label: '资产', icon: Palette, active: false },
+        ].map((tab) => {
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.label}
+              className={`flex flex-col items-center gap-1 px-4 py-1.5 text-xs cursor-pointer transition-colors ${
+                tab.active ? 'text-[#C0031C]' : 'text-white/40 hover:text-white/60'
+              }`}
+            >
+              <Icon className="h-5 w-5" />
+              {tab.label}
+            </button>
+          );
+        })}
       </nav>
     </div>
   );

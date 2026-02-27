@@ -61,8 +61,8 @@ const nodeConfigs: Record<string, { label: string; description: string; status: 
 const singleTypes = ['entry', 'checkpoint', 'characterpack', 'script', 'scenedesign', 'segmentdesign', 'compose'];
 const multiTypes = ['entry', 'checkpoint', 'storybible', 'characterpack', 'planningcenter', 'script', 'scenedesign', 'segmentdesign', 'compose'];
 const scriptTypes = ['entry', 'checkpoint', 'script', 'characterpack', 'scenedesign', 'segmentdesign', 'compose'];
-const musicTypes = ['entry', 'checkpoint', 'checkpoint', 'checkpoint', 'checkpoint', 'segmentdesign', 'compose'];
-const redbookTypes = ['entry', 'checkpoint', 'checkpoint', 'checkpoint', 'segmentdesign', 'compose'];
+const musicTypes = ['entry', 'checkpoint', 'storybible', 'scenedesign', 'checkpoint', 'segmentdesign', 'compose'];
+const redbookTypes = ['entry', 'checkpoint', 'storybible', 'characterpack', 'segmentdesign', 'compose'];
 
 function getNodeTypes(projectType: ProjectType): string[] {
   switch (projectType) {
@@ -78,7 +78,11 @@ export function getCanvasLayout(projectType: ProjectType): LayoutResult {
   const configs = nodeConfigs[projectType] || nodeConfigs.single_episode;
   const types = getNodeTypes(projectType);
 
-  const nodes: Node[] = configs.map((config, i) => ({
+  // Progressive unlock: show completed + active + first pending (locked preview)
+  const activeIdx = configs.findIndex((c) => c.status === 'active');
+  const visibleCount = activeIdx >= 0 ? Math.min(activeIdx + 2, configs.length) : configs.length;
+
+  const nodes: Node[] = configs.slice(0, visibleCount).map((config, i) => ({
     id: `node-${i}`,
     type: types[i] || 'checkpoint',
     position: { x: CENTER_X, y: i * NODE_GAP_Y },
@@ -87,17 +91,18 @@ export function getCanvasLayout(projectType: ProjectType): LayoutResult {
       description: config.description,
       status: config.status,
       index: i,
+      locked: config.status === 'pending',
     },
   }));
 
-  const edges: Edge[] = configs.slice(0, -1).map((_, i) => ({
+  const edges: Edge[] = nodes.slice(0, -1).map((_, i) => ({
     id: `edge-${i}-${i + 1}`,
     source: `node-${i}`,
     target: `node-${i + 1}`,
     type: 'smoothstep',
     animated: configs[i].status === 'active',
     style: {
-      stroke: configs[i].status === 'completed' ? 'var(--primary)' : 'var(--border)',
+      stroke: configs[i].status === 'completed' ? 'var(--primary)' : 'rgba(255,255,255,0.10)',
       strokeWidth: 2,
     },
   }));

@@ -4,6 +4,7 @@ import { useProjectStore } from '@/stores/project-store';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useEffect } from 'react';
+import Image from 'next/image';
 import { Sparkles, Volume2, Plus } from 'lucide-react';
 
 export function CharacterPackDetail() {
@@ -29,7 +30,7 @@ export function CharacterPackDetail() {
             {/* Avatar */}
             <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-muted to-secondary flex items-center justify-center flex-shrink-0">
               {char.image_url ? (
-                <img src={char.image_url} alt="" className="w-full h-full object-cover rounded-lg" />
+                <Image src={char.image_url} alt={char.name} fill className="object-cover rounded-lg" />
               ) : (
                 <span className="text-xl">👤</span>
               )}

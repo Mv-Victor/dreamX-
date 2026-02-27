@@ -14,10 +14,10 @@ export function Badge({ children, variant = 'default', className }: BadgeProps) 
       className={cn(
         'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
         {
-          'bg-primary/20 text-primary': variant === 'default',
-          'bg-secondary text-secondary-foreground': variant === 'secondary',
-          'bg-accent/20 text-accent': variant === 'accent',
-          'border border-border text-muted-foreground': variant === 'outline',
+          'bg-[rgba(192,3,28,0.20)] text-[#FF4D4D]': variant === 'default',
+          'bg-white/5 text-white/60': variant === 'secondary',
+          'bg-[rgba(255,77,77,0.20)] text-accent': variant === 'accent',
+          'border border-white/10 text-white/40': variant === 'outline',
         },
         className
       )}

@@ -54,7 +54,7 @@ function CanvasInner() {
   const router = useRouter();
   const projectId = params.projectId as string;
   const { projects, selectProject, currentProject, loadProjects } = useProjectStore();
-  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [selectedNodeType, setSelectedNodeType] = useState<string | null>(null);
   const [chatOpen, setChatOpen] = useState(true);
 
   useEffect(() => {
@@ -79,26 +79,29 @@ function CanvasInner() {
   }, [initialNodes, initialEdges, setNodes, setEdges]);
 
   const onNodeClick = useCallback((_: React.MouseEvent, node: Node) => {
-    setSelectedNodeId(node.id);
+    const data = node.data as Record<string, unknown>;
+    // Don't open detail for locked nodes or entry
+    if (data.locked || node.type === 'entry') {
+      setSelectedNodeType(null);
+      return;
+    }
+    setSelectedNodeType(node.type || null);
   }, []);
 
   const onPaneClick = useCallback(() => {
-    setSelectedNodeId(null);
+    setSelectedNodeType(null);
   }, []);
-
-  const selectedNode = nodes.find((n) => n.id === selectedNodeId) || null;
 
   if (!currentProject) {
     return (
-      <div className="h-screen flex items-center justify-center text-muted-foreground">
+      <div className="h-screen flex items-center justify-center text-white/40">
         加载中...
       </div>
     );
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background">
-      {/* Toolbar */}
+    <div className="h-screen flex flex-col bg-black">
       <CanvasToolbar
         project={currentProject}
         chatOpen={chatOpen}
@@ -106,12 +109,9 @@ function CanvasInner() {
         onBack={() => router.push('/projects')}
       />
 
-      {/* Main Area */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left: Chat Panel */}
         {chatOpen && <ChatPanel />}
 
-        {/* Center: Canvas */}
         <div className="flex-1 relative">
           <ReactFlow
             nodes={nodes}
@@ -127,23 +127,20 @@ function CanvasInner() {
             maxZoom={2}
             proOptions={{ hideAttribution: true }}
           >
-            <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="var(--border)" />
+            <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="rgba(255,255,255,0.05)" />
             <Controls position="bottom-right" />
             <MiniMap
               position="bottom-left"
-              nodeColor={() => 'var(--primary)'}
+              nodeColor={() => '#C0031C'}
               maskColor="rgba(0,0,0,0.7)"
             />
           </ReactFlow>
         </div>
 
-        {/* Right: Detail Panel */}
-        {selectedNode && (
-          <DetailPanel
-            node={selectedNode}
-            onClose={() => setSelectedNodeId(null)}
-          />
-        )}
+        <DetailPanel
+          selectedNodeType={selectedNodeType}
+          onClose={() => setSelectedNodeType(null)}
+        />
       </div>
     </div>
   );

@@ -1,61 +1,58 @@
 'use client';
 
-import { Node } from '@xyflow/react';
-import { Button } from '@/components/ui/button';
+import dynamic from 'next/dynamic';
 import { X } from 'lucide-react';
-import { CheckPointDetail } from '@/components/canvas/details/checkpoint-detail';
-import { StoryBibleDetail } from '@/components/canvas/details/storybible-detail';
-import { CharacterPackDetail } from '@/components/canvas/details/characterpack-detail';
-import { PlanningCenterDetail } from '@/components/canvas/details/planningcenter-detail';
-import { ScriptDetail } from '@/components/canvas/details/script-detail';
-import { SceneDesignDetail } from '@/components/canvas/details/scenedesign-detail';
-import { SegmentDesignDetail } from '@/components/canvas/details/segmentdesign-detail';
-import { ComposeDetail } from '@/components/canvas/details/compose-detail';
+import { Spinner } from '@/components/ui/spinner';
+
+const DetailLoading = () => (
+  <div className="flex items-center justify-center h-40">
+    <Spinner />
+  </div>
+);
+
+const CheckPointDetail = dynamic(() => import('./details/checkpoint-detail').then(m => ({ default: m.CheckPointDetail })), { loading: DetailLoading });
+const StoryBibleDetail = dynamic(() => import('./details/storybible-detail').then(m => ({ default: m.StoryBibleDetail })), { loading: DetailLoading });
+const CharacterPackDetail = dynamic(() => import('./details/characterpack-detail').then(m => ({ default: m.CharacterPackDetail })), { loading: DetailLoading });
+const PlanningCenterDetail = dynamic(() => import('./details/planningcenter-detail').then(m => ({ default: m.PlanningCenterDetail })), { loading: DetailLoading });
+const ScriptDetail = dynamic(() => import('./details/script-detail').then(m => ({ default: m.ScriptDetail })), { loading: DetailLoading });
+const SceneDesignDetail = dynamic(() => import('./details/scenedesign-detail').then(m => ({ default: m.SceneDesignDetail })), { loading: DetailLoading });
+const SegmentDesignDetail = dynamic(() => import('./details/segmentdesign-detail').then(m => ({ default: m.SegmentDesignDetail })), { loading: DetailLoading });
+const ComposeDetail = dynamic(() => import('./details/compose-detail').then(m => ({ default: m.ComposeDetail })), { loading: DetailLoading });
+
+const detailMap: Record<string, React.ComponentType> = {
+  checkpoint: CheckPointDetail,
+  storybible: StoryBibleDetail,
+  characterpack: CharacterPackDetail,
+  planningcenter: PlanningCenterDetail,
+  script: ScriptDetail,
+  scenedesign: SceneDesignDetail,
+  segmentdesign: SegmentDesignDetail,
+  compose: ComposeDetail,
+};
 
 interface DetailPanelProps {
-  node: Node;
+  selectedNodeType: string | null;
   onClose: () => void;
 }
 
-export function DetailPanel({ node, onClose }: DetailPanelProps) {
-  const renderDetail = () => {
-    switch (node.type) {
-      case 'checkpoint': return <CheckPointDetail />;
-      case 'storybible': return <StoryBibleDetail />;
-      case 'characterpack': return <CharacterPackDetail />;
-      case 'planningcenter': return <PlanningCenterDetail />;
-      case 'script': return <ScriptDetail />;
-      case 'scenedesign': return <SceneDesignDetail />;
-      case 'segmentdesign': return <SegmentDesignDetail />;
-      case 'compose': return <ComposeDetail />;
-      case 'entry':
-        return (
-          <div className="p-4 text-center text-muted-foreground">
-            <p className="text-sm">这是你创作旅程的起点</p>
-            <p className="text-xs mt-2">点击下一个节点开始配置</p>
-          </div>
-        );
-      default:
-        return (
-          <div className="p-4 text-center text-muted-foreground text-sm">
-            选择一个节点查看详情
-          </div>
-        );
-    }
-  };
+export function DetailPanel({ selectedNodeType, onClose }: DetailPanelProps) {
+  if (!selectedNodeType) return null;
+
+  const DetailComponent = detailMap[selectedNodeType];
 
   return (
-    <div className="w-[380px] border-l border-border bg-sidebar overflow-y-auto animate-slide-right">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border sticky top-0 bg-sidebar z-10">
-        <div>
-          <h3 className="text-sm font-medium">{(node.data as Record<string, string>).label}</h3>
-          <p className="text-xs text-muted-foreground mt-0.5">{(node.data as Record<string, string>).description}</p>
-        </div>
-        <Button variant="ghost" size="icon" onClick={onClose}>
+    <div className="w-[340px] border-l border-white/10 bg-black/50 backdrop-blur-sm flex flex-col animate-slide-right">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+        <h3 className="text-sm font-medium text-white/80 capitalize">{selectedNodeType}</h3>
+        <button onClick={onClose} className="text-white/40 hover:text-white/60 cursor-pointer transition-colors">
           <X className="h-4 w-4" />
-        </Button>
+        </button>
       </div>
-      {renderDetail()}
+      <div className="flex-1 overflow-y-auto">
+        {DetailComponent ? <DetailComponent /> : (
+          <div className="p-4 text-sm text-white/40">暂无详情面板</div>
+        )}
+      </div>
     </div>
   );
 }
