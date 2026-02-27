@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { Project, ProjectType, CheckPoint, Character, VisualStyle, Voice, Episode } from '@/types';
-import { mockProjects, mockVisualStyles, mockVoices, mockCharacters, mockEpisodes } from '@/mock/data';
+import { mockProjects } from '@/mock/data';
+import { visualStyles } from '@/mock/visual-styles';
+import { voices } from '@/mock/voices';
 
 interface ProjectStore {
   // Data
@@ -73,15 +75,15 @@ export const useProjectStore = create<ProjectStore>()(
       if (project) {
         set((state) => {
           state.currentProject = project;
-          state.characters = mockCharacters;
-          state.episodes = mockEpisodes;
+          state.characters = [];
+          state.episodes = [];
           state.checkPoint = {
             language: 'zh-CN',
             rating: 'PG',
             visual_style_id: 1,
             mode: 'standard',
             idea_text: project.series_title,
-            episode_count: project.episode_count,
+            episode_count: project.episode_count || 1,
             episode_duration: 60,
             camera_frame_ratio: '9:16',
           };
@@ -92,13 +94,13 @@ export const useProjectStore = create<ProjectStore>()(
 
     loadVisualStyles: () => {
       set((state) => {
-        state.visualStyles = mockVisualStyles;
+        state.visualStyles = visualStyles;
       });
     },
 
     loadVoices: () => {
       set((state) => {
-        state.voices = mockVoices;
+        state.voices = voices;
       });
     },
 

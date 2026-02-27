@@ -132,7 +132,7 @@ export interface Voice {
   id: string;
   name: string;
   description: string;
-  audio_url: string;
+  audioUrl: string;
   age: string[];
   language: string;
   gender: 'Male' | 'Female';

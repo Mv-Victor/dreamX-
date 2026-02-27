@@ -4,18 +4,25 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
-import { Mail, Lock, Eye, EyeOff, Github, Chrome } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login - redirect to projects
-    router.push('/projects');
+    if (password !== confirmPassword) {
+      alert('两次输入的密码不一致');
+      return;
+    }
+    // Mock register - redirect to login
+    router.push('/login');
   };
 
   return (
@@ -42,16 +49,32 @@ export default function LoginPage() {
       </nav>
 
       {/* Content */}
-      <main className="relative z-10 flex-1 flex items-center justify-center px-4">
+      <main className="relative z-10 flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white/90 mb-2">欢迎回来</h1>
-            <p className="text-sm text-white/40">登录你的 DreamX 账号开始创作</p>
+            <h1 className="text-3xl font-bold text-white/90 mb-2">创建账号</h1>
+            <p className="text-sm text-white/40">注册 DreamX 账号开始你的创作之旅</p>
           </div>
 
-          {/* Login Form */}
-          <form onSubmit={handleLogin} className="space-y-4">
+          {/* Register Form */}
+          <form onSubmit={handleRegister} className="space-y-4">
+            {/* Name */}
+            <div>
+              <label className="block text-xs font-medium text-white/60 mb-1.5">昵称</label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="你的昵称"
+                  className="w-full h-11 rounded-xl border border-white/10 bg-white/5 pl-10 pr-4 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[rgba(192,3,28,0.40)] focus:ring-1 focus:ring-[rgba(192,3,28,0.20)] transition-all"
+                  required
+                />
+              </div>
+            </div>
+
             {/* Email */}
             <div>
               <label className="block text-xs font-medium text-white/60 mb-1.5">邮箱</label>
@@ -77,9 +100,10 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
+                  placeholder="至少 8 位"
                   className="w-full h-11 rounded-xl border border-white/10 bg-white/5 pl-10 pr-10 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[rgba(192,3,28,0.40)] focus:ring-1 focus:ring-[rgba(192,3,28,0.20)] transition-all"
                   required
+                  minLength={8}
                 />
                 <button
                   type="button"
@@ -91,50 +115,51 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Remember & Forgot */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded border-white/10 bg-white/5 text-[#C0031C] focus:ring-[#C0031C]" />
-                <span className="text-xs text-white/40">记住我</span>
-              </label>
-              <button type="button" className="text-xs text-[#FF4D4D] hover:underline cursor-pointer">
-                忘记密码？
-              </button>
+            {/* Confirm Password */}
+            <div>
+              <label className="block text-xs font-medium text-white/60 mb-1.5">确认密码</label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="再次输入密码"
+                  className="w-full h-11 rounded-xl border border-white/10 bg-white/5 pl-10 pr-10 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[rgba(192,3,28,0.40)] focus:ring-1 focus:ring-[rgba(192,3,28,0.20)] transition-all"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/50 cursor-pointer"
+                >
+                  {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
+
+            {/* Terms */}
+            <label className="flex items-start gap-2 cursor-pointer">
+              <input type="checkbox" className="w-4 h-4 rounded border-white/10 bg-white/5 text-[#C0031C] focus:ring-[#C0031C] mt-0.5" required />
+              <span className="text-xs text-white/40">
+                我已阅读并同意{' '}
+                <button type="button" className="text-[#FF4D4D] hover:underline cursor-pointer">服务条款</button>
+                {' '}和{' '}
+                <button type="button" className="text-[#FF4D4D] hover:underline cursor-pointer">隐私政策</button>
+              </span>
+            </label>
 
             {/* Submit */}
             <Button type="submit" size="lg" className="w-full h-11 rounded-xl bg-[rgba(192,3,28,0.20)] hover:bg-[rgba(192,3,28,0.25)] border border-[rgba(192,3,28,0.30)]">
-              登录
+              注册账号
             </Button>
           </form>
 
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/10" />
-            </div>
-            <div className="relative flex justify-center text-xs">
-              <span className="px-4 bg-black text-white/30">或使用以下方式登录</span>
-            </div>
-          </div>
-
-          {/* Social Login */}
-          <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" size="lg" className="h-11 rounded-xl border-white/10 bg-white/5 hover:bg-white/10">
-              <Chrome className="h-4 w-4 mr-2" />
-              Google
-            </Button>
-            <Button variant="outline" size="lg" className="h-11 rounded-xl border-white/10 bg-white/5 hover:bg-white/10">
-              <Github className="h-4 w-4 mr-2" />
-              GitHub
-            </Button>
-          </div>
-
-          {/* Sign Up Link */}
+          {/* Login Link */}
           <p className="text-center text-xs text-white/40 mt-6">
-            还没有账号？{' '}
-            <button onClick={() => router.push('/register')} className="text-[#FF4D4D] hover:underline font-medium cursor-pointer">
-              立即注册
+            已有账号？{' '}
+            <button onClick={() => router.push('/login')} className="text-[#FF4D4D] hover:underline font-medium cursor-pointer">
+              立即登录
             </button>
           </p>
         </div>

@@ -5,14 +5,14 @@
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { api } from './client';
-import type { ApiResponse, Character, GenerateCharactersRequest, GenerateCharactersResponse, VoiceListResponse } from '@/types/api';
+import type { ApiResponse, Character, GenerateCharactersRequest, GenerateCharactersResponse, Voice, VoiceListResponse } from '@/types/api';
 import { voices as allVoices } from '@/mock/voices';
 
 /**
  * 获取配音列表
  */
 export async function getVoices(params?: { language?: string; gender?: string }): Promise<ApiResponse<VoiceListResponse>> {
-  let voices = allVoices;
+  let voices: Voice[] = allVoices;
   if (params?.language) voices = voices.filter(v => v.language === params.language);
   if (params?.gender) voices = voices.filter(v => v.gender === params.gender);
 
