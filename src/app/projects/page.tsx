@@ -89,8 +89,8 @@ export default function ProjectsPage() {
         )}
       </main>
 
-      {/* Bottom Tab Bar */}
-      <nav className="border-t border-white/10 px-6 py-2 flex justify-around bg-black/50 backdrop-blur-sm">
+      {/* Bottom Tab Bar - Drama.Land style */}
+      <nav className="fixed bottom-0 left-0 right-0 border-t border-white/10 px-6 py-2 flex justify-around bg-black/80 backdrop-blur-xl z-50">
         {[
           { label: '首页', icon: Home, active: true },
           { label: '存档', icon: FolderOpen, active: false },
@@ -100,12 +100,29 @@ export default function ProjectsPage() {
           return (
             <button
               key={tab.label}
-              className={`flex flex-col items-center gap-1 px-4 py-1.5 text-xs cursor-pointer transition-colors ${
-                tab.active ? 'text-[#C0031C]' : 'text-white/40 hover:text-white/60'
-              }`}
+              className="flex flex-col items-center gap-1 px-6 py-1 cursor-pointer group"
             >
-              <Icon className="h-5 w-5" />
-              {tab.label}
+              <div
+                className="p-2 rounded-xl transition-all"
+                style={{
+                  background: tab.active ? 'rgba(192,3,28,0.20)' : 'transparent',
+                }}
+              >
+                <Icon
+                  className="h-5 w-5 transition-colors"
+                  style={{
+                    color: tab.active ? '#FF4D4D' : 'rgba(255,255,255,0.40)',
+                  }}
+                />
+              </div>
+              <span
+                className="text-[11px] font-medium transition-colors"
+                style={{
+                  color: tab.active ? '#FF4D4D' : 'rgba(255,255,255,0.40)',
+                }}
+              >
+                {tab.label}
+              </span>
             </button>
           );
         })}

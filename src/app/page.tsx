@@ -136,17 +136,19 @@ export default function HomePage() {
 
               <div className="h-4 w-px bg-white/10 mx-1" />
 
-              {/* Mode Tabs - Pill Style */}
-              <div className="flex items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 p-0.5">
+              {/* Mode Tabs - Pill Style (nowrap) */}
+              <div className="flex-shrink-0 flex items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 p-0.5 overflow-x-auto">
                 {modeTabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setSelectedMode(tab.id)}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-medium cursor-pointer transition-all ${
-                      selectedMode === tab.id
-                        ? 'bg-white/15 text-white'
-                        : 'text-white/40 hover:text-white/60'
-                    }`}
+                    className="flex-shrink-0 px-2.5 py-1 rounded-md text-[11px] font-medium cursor-pointer transition-all whitespace-nowrap"
+                    style={{
+                      background: selectedMode === tab.id ? 'rgba(255,255,255,0.15)' : 'transparent',
+                      color: selectedMode === tab.id ? '#fff' : 'rgba(255,255,255,0.40)',
+                    }}
+                    onMouseEnter={(e) => { if (selectedMode !== tab.id) e.currentTarget.style.color = 'rgba(255,255,255,0.60)'; }}
+                    onMouseLeave={(e) => { if (selectedMode !== tab.id) e.currentTarget.style.color = 'rgba(255,255,255,0.40)'; }}
                   >
                     {tab.short}
                   </button>

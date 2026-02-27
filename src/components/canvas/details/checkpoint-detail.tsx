@@ -1,10 +1,8 @@
 'use client';
 
 import { useProjectStore } from '@/stores/project-store';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { useEffect } from 'react';
-import { Sparkles, ChevronRight } from 'lucide-react';
+import { Sparkles, ChevronRight, Monitor, Shield, Film, Clock, Type, Image as ImageIcon, FileText } from 'lucide-react';
 
 export function CheckPointDetail() {
   const { checkPoint, updateCheckPoint, visualStyles, loadVisualStyles } = useProjectStore();
@@ -15,146 +13,172 @@ export function CheckPointDetail() {
 
   if (!checkPoint) return null;
 
+  const Section = ({ icon: Icon, label, children }: { icon: React.ComponentType<{ className?: string }>; label: string; children: React.ReactNode }) => (
+    <div className="mb-5">
+      <div className="flex items-center gap-2 mb-2.5">
+        <Icon className="h-4 w-4 text-white/40" />
+        <span className="text-xs font-medium text-white/60 uppercase tracking-wide">{label}</span>
+      </div>
+      {children}
+    </div>
+  );
+
   return (
-    <div className="p-4 space-y-5">
+    <div className="p-5 space-y-6">
       {/* Language */}
-      <div>
-        <label className="text-xs text-muted-foreground mb-2 block">语言</label>
+      <Section icon={Type} label="Language">
         <div className="flex gap-2">
           {['zh-CN', 'en-US'].map((lang) => (
             <button
               key={lang}
               onClick={() => updateCheckPoint({ language: lang })}
-              className={`px-3 py-1.5 rounded-md text-xs cursor-pointer transition-colors ${
-                checkPoint.language === lang
-                  ? 'bg-primary/20 text-primary border border-primary/40'
-                  : 'bg-muted text-muted-foreground border border-transparent hover:border-border'
-              }`}
+              className="flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer border"
+              style={{
+                background: checkPoint.language === lang ? 'rgba(192,3,28,0.20)' : 'rgba(255,255,255,0.05)',
+                border: checkPoint.language === lang ? 'rgba(192,3,28,0.40)' : 'rgba(255,255,255,0.10)',
+                color: checkPoint.language === lang ? '#FF4D4D' : 'rgba(255,255,255,0.60)',
+              }}
             >
               {lang === 'zh-CN' ? '中文' : 'English'}
             </button>
           ))}
         </div>
-      </div>
+      </Section>
 
       {/* Rating */}
-      <div>
-        <label className="text-xs text-muted-foreground mb-2 block">评级</label>
+      <Section icon={Shield} label="Content Rating">
         <div className="flex gap-2">
           {['PG', 'PG-13', 'R'].map((r) => (
             <button
               key={r}
               onClick={() => updateCheckPoint({ rating: r })}
-              className={`px-3 py-1.5 rounded-md text-xs cursor-pointer transition-colors ${
-                checkPoint.rating === r
-                  ? 'bg-primary/20 text-primary border border-primary/40'
-                  : 'bg-muted text-muted-foreground border border-transparent hover:border-border'
-              }`}
+              className="flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer border"
+              style={{
+                background: checkPoint.rating === r ? 'rgba(192,3,28,0.20)' : 'rgba(255,255,255,0.05)',
+                border: checkPoint.rating === r ? 'rgba(192,3,28,0.40)' : 'rgba(255,255,255,0.10)',
+                color: checkPoint.rating === r ? '#FF4D4D' : 'rgba(255,255,255,0.60)',
+              }}
             >
               {r}
             </button>
           ))}
         </div>
-      </div>
+      </Section>
 
       {/* Frame Ratio */}
-      <div>
-        <label className="text-xs text-muted-foreground mb-2 block">画面比例</label>
+      <Section icon={Monitor} label="Aspect Ratio">
         <div className="flex gap-2">
           {(['9:16', '16:9', '1:1'] as const).map((ratio) => (
             <button
               key={ratio}
               onClick={() => updateCheckPoint({ camera_frame_ratio: ratio })}
-              className={`px-3 py-1.5 rounded-md text-xs cursor-pointer transition-colors ${
-                checkPoint.camera_frame_ratio === ratio
-                  ? 'bg-primary/20 text-primary border border-primary/40'
-                  : 'bg-muted text-muted-foreground border border-transparent hover:border-border'
-              }`}
+              className="flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer border"
+              style={{
+                background: checkPoint.camera_frame_ratio === ratio ? 'rgba(192,3,28,0.20)' : 'rgba(255,255,255,0.05)',
+                border: checkPoint.camera_frame_ratio === ratio ? 'rgba(192,3,28,0.40)' : 'rgba(255,255,255,0.10)',
+                color: checkPoint.camera_frame_ratio === ratio ? '#FF4D4D' : 'rgba(255,255,255,0.60)',
+              }}
             >
               {ratio}
             </button>
           ))}
         </div>
-      </div>
+      </Section>
 
       {/* Episode Count */}
-      <div>
-        <label className="text-xs text-muted-foreground mb-2 block">剧集数量</label>
-        <div className="flex items-center gap-3">
-          <input
-            type="range"
-            min={1}
-            max={12}
-            value={checkPoint.episode_count}
-            onChange={(e) => updateCheckPoint({ episode_count: parseInt(e.target.value) })}
-            className="flex-1 accent-primary"
-          />
-          <span className="text-sm font-medium w-8 text-center">{checkPoint.episode_count}</span>
+      <Section icon={Film} label={`Episodes: ${checkPoint.episode_count}`}>
+        <input
+          type="range"
+          min={1}
+          max={12}
+          value={checkPoint.episode_count}
+          onChange={(e) => updateCheckPoint({ episode_count: parseInt(e.target.value) })}
+          className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+          style={{ background: 'rgba(255,255,255,0.10)' }}
+        />
+        <div className="flex justify-between mt-1.5 text-[10px] text-white/30">
+          <span>1</span>
+          <span>12</span>
         </div>
-      </div>
+      </Section>
 
       {/* Episode Duration */}
-      <div>
-        <label className="text-xs text-muted-foreground mb-2 block">单集时长（秒）</label>
-        <div className="flex items-center gap-3">
-          <input
-            type="range"
-            min={15}
-            max={300}
-            step={15}
-            value={checkPoint.episode_duration}
-            onChange={(e) => updateCheckPoint({ episode_duration: parseInt(e.target.value) })}
-            className="flex-1 accent-primary"
-          />
-          <span className="text-sm font-medium w-12 text-center">{checkPoint.episode_duration}s</span>
+      <Section icon={Clock} label={`Duration: ${checkPoint.episode_duration}s`}>
+        <input
+          type="range"
+          min={15}
+          max={300}
+          step={15}
+          value={checkPoint.episode_duration}
+          onChange={(e) => updateCheckPoint({ episode_duration: parseInt(e.target.value) })}
+          className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+          style={{ background: 'rgba(255,255,255,0.10)' }}
+        />
+        <div className="flex justify-between mt-1.5 text-[10px] text-white/30">
+          <span>15s</span>
+          <span>300s</span>
         </div>
-      </div>
+      </Section>
 
       {/* Visual Style */}
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <label className="text-xs text-muted-foreground">视觉风格</label>
-          <button className="text-xs text-primary flex items-center gap-0.5 cursor-pointer hover:underline">
-            查看全部 <ChevronRight className="h-3 w-3" />
-          </button>
-        </div>
+      <Section icon={ImageIcon} label="Visual Style">
         <div className="grid grid-cols-2 gap-2">
           {visualStyles.slice(0, 4).map((style) => (
             <button
               key={style.id}
               onClick={() => updateCheckPoint({ visual_style_id: style.id })}
-              className={`rounded-lg overflow-hidden border-2 cursor-pointer transition-all ${
-                checkPoint.visual_style_id === style.id
-                  ? 'border-primary'
-                  : 'border-transparent hover:border-border'
-              }`}
+              className="group rounded-lg overflow-hidden border transition-all cursor-pointer"
+              style={{
+                border: checkPoint.visual_style_id === style.id ? '1px solid rgba(192,3,28,0.60)' : '1px solid rgba(255,255,255,0.10)',
+                background: checkPoint.visual_style_id === style.id ? 'rgba(192,3,28,0.10)' : 'rgba(255,255,255,0.02)',
+              }}
             >
-              <div className="aspect-video bg-gradient-to-br from-muted to-secondary flex items-center justify-center">
-                <span className="text-xs text-muted-foreground">🎨</span>
+              <div className="aspect-video bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center relative overflow-hidden">
+                <div className="text-2xl opacity-30">🎨</div>
+                {checkPoint.visual_style_id === style.id && (
+                  <div className="absolute inset-0 bg-[rgba(192,3,28,0.20)] flex items-center justify-center">
+                    <span className="text-white text-xs font-medium">✓</span>
+                  </div>
+                )}
               </div>
-              <div className="px-2 py-1.5 bg-muted">
-                <p className="text-xs truncate">{style.title}</p>
-                <Badge variant="outline" className="mt-0.5 text-[10px]">{style.type}</Badge>
+              <div className="px-2 py-2">
+                <p className="text-[10px] font-medium text-white/80 truncate">{style.title}</p>
+                <span className="mt-1 inline-flex items-center rounded-full border border-white/15 px-2 py-0.5 text-[9px] h-4 text-white/40">
+                  {style.type}
+                </span>
               </div>
             </button>
           ))}
         </div>
-      </div>
+        <button className="w-full mt-2 text-[10px] text-white/40 hover:text-white/60 transition-colors flex items-center justify-center gap-1 cursor-pointer">
+          查看全部风格 <ChevronRight className="h-3 w-3" />
+        </button>
+      </Section>
 
       {/* Idea Text */}
-      <div>
-        <label className="text-xs text-muted-foreground mb-2 block">创意描述</label>
+      <Section icon={FileText} label="Story Idea">
         <textarea
           value={checkPoint.idea_text}
           onChange={(e) => updateCheckPoint({ idea_text: e.target.value })}
-          className="w-full min-h-[80px] rounded-md border border-input bg-muted px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-none"
+          placeholder="描述你的创意故事..."
+          className="w-full min-h-[100px] rounded-lg border bg-white/5 px-3 py-2.5 text-xs text-white/80 placeholder:text-white/20 focus:outline-none focus:border-white/20 resize-none transition-colors"
+          style={{ borderColor: 'rgba(255,255,255,0.10)' }}
         />
-      </div>
+      </Section>
 
-      <Button className="w-full">
+      {/* Action Button */}
+      <button
+        className="w-full py-3 rounded-lg text-sm font-medium transition-all cursor-pointer flex items-center justify-center gap-2"
+        style={{
+          background: 'rgba(192,3,28,0.20)',
+          color: '#FF4D4D',
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(192,3,28,0.25)'}
+        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(192,3,28,0.20)'}
+      >
         <Sparkles className="h-4 w-4" />
         确认并继续
-      </Button>
+      </button>
     </div>
   );
 }

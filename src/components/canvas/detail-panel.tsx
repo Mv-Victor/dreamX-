@@ -41,16 +41,22 @@ export function DetailPanel({ selectedNodeType, onClose }: DetailPanelProps) {
   const DetailComponent = detailMap[selectedNodeType];
 
   return (
-    <div className="w-[340px] border-l border-white/10 bg-black/50 backdrop-blur-sm flex flex-col animate-slide-right">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-        <h3 className="text-sm font-medium text-white/80 capitalize">{selectedNodeType}</h3>
-        <button onClick={onClose} className="text-white/40 hover:text-white/60 cursor-pointer transition-colors">
-          <X className="h-4 w-4" />
+    <div className="w-[360px] border-l border-white/10 bg-[#0a0a0f] flex flex-col animate-slide-right">
+      <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#0a0a0f]/80 backdrop-blur-sm sticky top-0">
+        <div>
+          <h3 className="text-sm font-semibold text-white/90 capitalize">{selectedNodeType.replace(/([A-Z])/g, ' $1').trim()}</h3>
+          <p className="text-[10px] text-white/40 mt-0.5">配置节点参数</p>
+        </div>
+        <button
+          onClick={onClose}
+          className="p-1.5 rounded-lg hover:bg-white/5 cursor-pointer transition-colors"
+        >
+          <X className="h-4 w-4 text-white/40" />
         </button>
       </div>
       <div className="flex-1 overflow-y-auto">
         {DetailComponent ? <DetailComponent /> : (
-          <div className="p-4 text-sm text-white/40">暂无详情面板</div>
+          <div className="p-5 text-sm text-white/40">暂无详情面板</div>
         )}
       </div>
     </div>
