@@ -19,26 +19,14 @@ const SceneDesignDetail = dynamic(() => import('./details/scenedesign-detail').t
 const SegmentDesignDetail = dynamic(() => import('./details/segmentdesign-detail').then(m => ({ default: m.SegmentDesignDetail })), { loading: DetailLoading });
 const ComposeDetail = dynamic(() => import('./details/compose-detail').then(m => ({ default: m.ComposeDetail })), { loading: DetailLoading });
 
-const detailMap: Record<string, React.ComponentType> = {
-  checkpoint: CheckPointDetail,
-  storybible: StoryBibleDetail,
-  characterpack: CharacterPackDetail,
-  planningcenter: PlanningCenterDetail,
-  script: ScriptDetail,
-  scenedesign: SceneDesignDetail,
-  segmentdesign: SegmentDesignDetail,
-  compose: ComposeDetail,
-};
-
 interface DetailPanelProps {
   selectedNodeType: string | null;
   onClose: () => void;
+  onNodeComplete?: (nodeId: string) => void;
 }
 
-export function DetailPanel({ selectedNodeType, onClose }: DetailPanelProps) {
+export function DetailPanel({ selectedNodeType, onClose, onNodeComplete }: DetailPanelProps) {
   if (!selectedNodeType) return null;
-
-  const DetailComponent = detailMap[selectedNodeType];
 
   return (
     <div className="w-[360px] border-l border-white/10 bg-[#0a0a0f] flex flex-col animate-slide-right">
@@ -55,9 +43,14 @@ export function DetailPanel({ selectedNodeType, onClose }: DetailPanelProps) {
         </button>
       </div>
       <div className="flex-1 overflow-y-auto">
-        {DetailComponent ? <DetailComponent /> : (
-          <div className="p-5 text-sm text-white/40">暂无详情面板</div>
-        )}
+        {selectedNodeType === 'checkpoint' && <CheckPointDetail onNodeComplete={onNodeComplete} />}
+        {selectedNodeType === 'storybible' && <StoryBibleDetail />}
+        {selectedNodeType === 'characterpack' && <CharacterPackDetail />}
+        {selectedNodeType === 'planningcenter' && <PlanningCenterDetail />}
+        {selectedNodeType === 'script' && <ScriptDetail />}
+        {selectedNodeType === 'scenedesign' && <SceneDesignDetail />}
+        {selectedNodeType === 'segmentdesign' && <SegmentDesignDetail />}
+        {selectedNodeType === 'compose' && <ComposeDetail />}
       </div>
     </div>
   );

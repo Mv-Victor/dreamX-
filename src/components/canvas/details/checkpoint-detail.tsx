@@ -7,7 +7,11 @@ import { DetailSection } from '@/components/ui/detail-section';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-export function CheckPointDetail() {
+interface CheckPointDetailProps {
+  onNodeComplete?: (nodeId: string) => void;
+}
+
+export function CheckPointDetail({ onNodeComplete }: CheckPointDetailProps) {
   const { checkPoint, updateCheckPoint, visualStyles, loadVisualStyles } = useProjectStore();
 
   useEffect(() => {
@@ -160,7 +164,12 @@ export function CheckPointDetail() {
       </DetailSection>
 
       {/* Action Button */}
-      <Button variant="default" size="sm" className="w-full">
+      <Button
+        variant="default"
+        size="sm"
+        className="w-full"
+        onClick={() => onNodeComplete?.('node-1')}
+      >
         <Sparkles className="h-4 w-4" />
         确认并继续
       </Button>

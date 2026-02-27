@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   ReactFlow,
@@ -12,6 +12,9 @@ import {
   useEdgesState,
   ReactFlowProvider,
   BackgroundVariant,
+  useReactFlow,
+  Connection,
+  Edge,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useProjectStore } from '@/stores/project-store';
@@ -56,6 +59,8 @@ function CanvasInner() {
   const { projects, selectProject, currentProject, loadProjects } = useProjectStore();
   const [selectedNodeType, setSelectedNodeType] = useState<string | null>(null);
   const [chatOpen, setChatOpen] = useState(true);
+  const { updateNodeData, getNodes } = useReactFlow();
+  const initialLoadRef = useRef(true);
 
   useEffect(() => {
     if (projects.length === 0) loadProjects();
@@ -70,13 +75,51 @@ function CanvasInner() {
   const projectType = currentProject?.project_type || 'single_episode';
   const { initialNodes, initialEdges } = useMemo(() => getCanvasLayout(projectType), [projectType]);
 
+  // 只在首次加载时使用 initialNodes，后续通过 updateNodeData 更新
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  // 只在首次加载时设置节点，避免重置用户进度
   useEffect(() => {
-    setNodes(initialNodes);
-    setEdges(initialEdges);
-  }, [initialNodes, initialEdges, setNodes, setEdges]);
+    if (initialLoadRef.current) {
+      setNodes(initialNodes);
+      setEdges(initialEdges);
+      initialLoadRef.current = false;
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 当 projectType 变化时，只更新节点状态，不重置整个 nodes 数组
+  useEffect(() => {
+    if (!initialLoadRef.current && initialNodes.length > 0) {
+      // 使用函数形式更新节点，保留用户进度
+      setNodes((prev) =>
+        prev.map((node) => {
+          const newNode = initialNodes.find((n) => n.id === node.id);
+          if (newNode) {
+            return { ...node, data: { ...node.data, ...newNode.data } };
+          }
+          return node;
+        })
+      );
+      setEdges(initialEdges);
+    }
+  }, [initialNodes, initialEdges]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 连接验证：只允许从上到下顺序连接
+  const isValidConnection = useCallback(
+    (connection: Connection | Edge) => {
+      const { source, target } = connection;
+      if (!source || !target) return false;
+      if (source === target) return false; // 防止自连接
+
+      const sourceIdx = parseInt(source.split('-')[1] || '-1', 10);
+      const targetIdx = parseInt(target.split('-')[1] || '-1', 10);
+
+      // 只允许顺序连接（下一个节点）
+      return targetIdx === sourceIdx + 1;
+    },
+    []
+  );
 
   const onNodeClick = useCallback((_: React.MouseEvent, node: Node) => {
     const data = node.data as Record<string, unknown>;
@@ -91,6 +134,20 @@ function CanvasInner() {
   const onPaneClick = useCallback(() => {
     setSelectedNodeType(null);
   }, []);
+
+  // 节点状态变更处理（用于解锁下一个节点）
+  const handleNodeComplete = useCallback(
+    (nodeId: string) => {
+      const currentNodes = getNodes();
+      const currentNodeIdx = currentNodes.findIndex((n) => n.id === nodeId);
+      if (currentNodeIdx >= 0 && currentNodeIdx < currentNodes.length - 1) {
+        const nextNodeId = currentNodes[currentNodeIdx + 1].id;
+        updateNodeData(nextNodeId, { status: 'active', locked: false });
+        updateNodeData(nodeId, { status: 'completed' });
+      }
+    },
+    [getNodes, updateNodeData]
+  );
 
   if (!currentProject) {
     return (
@@ -121,6 +178,7 @@ function CanvasInner() {
             onNodeClick={onNodeClick}
             onPaneClick={onPaneClick}
             nodeTypes={nodeTypes}
+            isValidConnection={isValidConnection}
             fitView
             fitViewOptions={{ padding: 0.3 }}
             minZoom={0.3}
@@ -140,6 +198,7 @@ function CanvasInner() {
         <DetailPanel
           selectedNodeType={selectedNodeType}
           onClose={() => setSelectedNodeType(null)}
+          onNodeComplete={handleNodeComplete}
         />
       </div>
     </div>
