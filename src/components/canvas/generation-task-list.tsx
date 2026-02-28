@@ -43,7 +43,7 @@ export function GenerationTaskList() {
             {/* Content */}
             <div className="flex-1 min-w-0">
               <h4 className="text-sm font-medium text-white/80 capitalize">
-                {TASK_TYPE_LABELS[task.type] || '生成任务'}
+                {TASK_TYPE_LABELS[task.type] ?? '生成任务'}
               </h4>
               
               {task.status === 'processing' && (

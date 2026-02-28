@@ -1,18 +1,11 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { Project, ProjectType, CheckPoint, Character, VisualStyle, Voice, Episode } from '@/types';
+import type { GenerationTask } from '@/types/generation';
+import type { ChatMessage } from '@/types/chat';
 import { mockProjects } from '@/mock/data';
 import { visualStyles } from '@/mock/visual-styles';
 import { voices } from '@/mock/voices';
-
-interface GenerationTask {
-  task_id: string;
-  type: 'image' | 'video' | 'characters' | 'script';
-  status: 'pending' | 'processing' | 'completed' | 'failed';
-  progress: number;
-  result?: string;
-  error?: string;
-}
 
 interface ProjectStore {
   // Data
@@ -23,7 +16,7 @@ interface ProjectStore {
   episodes: Episode[];
   visualStyles: VisualStyle[];
   voices: Voice[];
-  chatMessages: { role: 'user' | 'assistant'; content: string }[];
+  chatMessages: ChatMessage[];
   generationTasks: GenerationTask[];
 
   // Actions
@@ -33,7 +26,7 @@ interface ProjectStore {
   loadVisualStyles: () => void;
   loadVoices: () => void;
   updateCheckPoint: (patch: Partial<CheckPoint>) => void;
-  addChatMessage: (role: 'user' | 'assistant', content: string) => void;
+  addChatMessage: (role: ChatMessage['role'], content: string) => void;
   addGenerationTask: (task: GenerationTask) => void;
   updateGenerationTask: (taskId: string, patch: Partial<GenerationTask>) => void;
   removeGenerationTask: (taskId: string) => void;
