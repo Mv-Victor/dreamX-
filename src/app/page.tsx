@@ -124,14 +124,10 @@ export default function HomePage() {
 
             {/* Bottom Toolbar */}
             <div className="flex items-center gap-2 px-4 py-2.5 border-t border-white/10">
-              {/* Upload & Asset */}
+              {/* Upload Asset */}
               <button className="flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs text-white/40 hover:text-white/60 hover:bg-white/5 cursor-pointer transition-colors">
                 <Upload className="h-3.5 w-3.5" />
-                上传音频
-              </button>
-              <button className="flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs text-white/40 hover:text-white/60 hover:bg-white/5 cursor-pointer transition-colors">
-                <FolderOpen className="h-3.5 w-3.5" />
-                素材
+                上传素材
               </button>
 
               <div className="h-4 w-px bg-white/10 mx-1" />
