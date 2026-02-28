@@ -90,11 +90,11 @@ export const CharacterPackDetail = ({ _nodeData, _updateNode, onNodeComplete }: 
               {/* Voice */}
               {char.voice_id && (
                 <div className="flex items-center gap-2 rounded-md px-2.5 py-1.5 bg-[var(--bg-white-5)]">
-                  <Volume2 className="h-3 w-3 text-[var(--brand-accent)]" />
+                  <Volume2 className="h-3 w-3 text-[var(--drama-red-active)]" />
                   <span className="text-[10px] text-[var(--text-white-60)]">
                     {voices.find((v) => v.id === char.voice_id)?.name || '未选择'}
                   </span>
-                  <button className="ml-auto text-[10px] text-[var(--brand-accent)] hover:underline cursor-pointer">切换</button>
+                  <button className="ml-auto text-[10px] text-[var(--drama-red-active)] hover:underline cursor-pointer">切换</button>
                 </div>
               )}
             </div>

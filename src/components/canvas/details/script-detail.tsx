@@ -28,7 +28,7 @@ export const ScriptDetail = ({ _nodeData, _updateNode, onNodeComplete }: ScriptD
   if (!episode) {
     return (
       <div className="p-5 text-center">
-        <p className="text-sm text-white/40 mb-4">暂无剧本数据</p>
+        <p className="text-sm text-[var(--drama-text-disabled)] mb-4">暂无剧本数据</p>
         <Button variant="default" size="sm">
           <Sparkles className="h-3.5 w-3.5" />
           生成剧本
@@ -42,8 +42,8 @@ export const ScriptDetail = ({ _nodeData, _updateNode, onNodeComplete }: ScriptD
       <DetailSection icon={FileText} label="Script">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h4 className="text-sm font-medium text-white/80">{episode.title}</h4>
-            <p className="text-[10px] text-white/40 mt-0.5">{episode.scenes.length} 个场景</p>
+            <h4 className="text-sm font-medium text-[var(--drama-text-primary)]">{episode.title}</h4>
+            <p className="text-[10px] text-[var(--drama-text-disabled)] mt-0.5">{episode.scenes.length} 个场景</p>
           </div>
           <Button variant="secondary" size="sm">
             <Edit3 className="h-3 w-3" />
@@ -58,15 +58,15 @@ export const ScriptDetail = ({ _nodeData, _updateNode, onNodeComplete }: ScriptD
                 <Badge variant="default">
                   场景 {String(scene.scene_number).padStart(2, '0')}
                 </Badge>
-                <span className="text-xs font-medium text-white/60">{scene.header}</span>
+                <span className="text-xs font-medium text-[var(--drama-text-secondary)]">{scene.header}</span>
               </div>
-              <p className="text-[10px] text-white/50 leading-relaxed">{scene.description}</p>
+              <p className="text-[10px] text-[var(--drama-text-muted)] leading-relaxed">{scene.description}</p>
 
               {/* Dialogue */}
               {scene.dialogue.length > 0 && (
-                <div className="space-y-1 pl-2 border-l-2 border-[var(--brand-primary-rgba-30)]">
+                <div className="space-y-1 pl-2 border-l-2 border-[var(--drama-red-bg-30)]">
                   {scene.dialogue.map((line, i) => (
-                    <p key={i} className="text-[10px] text-white/70">{line}</p>
+                    <p key={i} className="text-[10px] text-[var(--drama-text-secondary)]">{line}</p>
                   ))}
                 </div>
               )}
@@ -74,7 +74,7 @@ export const ScriptDetail = ({ _nodeData, _updateNode, onNodeComplete }: ScriptD
               {/* VO */}
               {scene.vo_narration && (
                 <div className="rounded-md px-2.5 py-1.5 bg-[var(--bg-white-5)]">
-                  <p className="text-[10px] text-white/40 italic">🎙 {scene.vo_narration}</p>
+                  <p className="text-[10px] text-[var(--drama-text-disabled)] italic">🎙 {scene.vo_narration}</p>
                 </div>
               )}
             </div>

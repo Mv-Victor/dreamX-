@@ -39,20 +39,20 @@ export const ComposeDetail = ({ _nodeData, _updateNode, onNodeComplete }: Compos
       <DetailSection icon={Settings2} label="Export Settings">
         <div className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] text-white/40">分辨率</span>
+            <span className="text-[10px] text-[var(--drama-text-disabled)]">分辨率</span>
             <Badge variant="outline">1080p</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[10px] text-white/40">格式</span>
+            <span className="text-[10px] text-[var(--drama-text-disabled)]">格式</span>
             <Badge variant="outline">MP4</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[10px] text-white/40">字幕</span>
+            <span className="text-[10px] text-[var(--drama-text-disabled)]">字幕</span>
             <Badge variant="outline">内嵌</Badge>
           </div>
           <div className="flex items-center justify-between pt-2 border-t border-[var(--drama-border)]">
-            <span className="text-[10px] text-white/40">预计积分</span>
-            <span className="text-[10px] font-medium text-[var(--brand-primary)]">5</span>
+            <span className="text-[10px] text-[var(--drama-text-disabled)]">预计积分</span>
+            <span className="text-[10px] font-medium text-[var(--drama-red)]">5</span>
           </div>
         </div>
       </DetailSection>

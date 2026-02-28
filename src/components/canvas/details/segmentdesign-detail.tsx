@@ -29,10 +29,10 @@ export const SegmentDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: 
     <div className="p-5 space-y-5">
       <DetailSection icon={Clapperboard} label="Segments">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs text-white/40">{SEGMENT_DESIGN_MOCK_DATA.length} 个分镜</p>
-          <div className="flex items-center gap-1 text-xs text-white/40">
+          <p className="text-xs text-[var(--drama-text-disabled)]">{SEGMENT_DESIGN_MOCK_DATA.length} 个分镜</p>
+          <div className="flex items-center gap-1 text-xs text-[var(--drama-text-disabled)]">
             <span>总时长</span>
-            <span className="text-white/60 font-medium">16s</span>
+            <span className="text-[var(--drama-text-secondary)] font-medium">16s</span>
           </div>
         </div>
 
@@ -42,22 +42,22 @@ export const SegmentDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: 
               {/* Thumbnail */}
               <div className="w-16 h-12 rounded-md bg-gradient-to-br from-[var(--drama-bg-white-5)] to-[var(--drama-bg-white-2)] flex items-center justify-center flex-shrink-0 relative border border-[var(--drama-border)]">
                 {seg.status === 'completed' && (
-                  <Play className="h-4 w-4 text-white/40" />
+                  <Play className="h-4 w-4 text-[var(--drama-text-disabled)]" />
                 )}
                 {seg.status === 'generating' && (
-                  <div className="w-3.5 h-3.5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin" />
+                  <div className="w-3.5 h-3.5 border-2 border-[var(--drama-red)] border-t-transparent rounded-full animate-spin" />
                 )}
                 {seg.status === 'pending' && (
-                  <Lock className="h-3.5 w-3.5 text-white/10" />
+                  <Lock className="h-3.5 w-3.5 text-[var(--drama-text-faint)]" />
                 )}
-                <span className="absolute bottom-0.5 right-1 text-[9px] text-white/30 bg-black/60 px-1 rounded">
+                <span className="absolute bottom-0.5 right-1 text-[9px] text-[var(--drama-text-muted)] bg-black/60 px-1 rounded">
                   {seg.duration}
                 </span>
               </div>
 
               {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-[10px] text-white/70 leading-relaxed line-clamp-2">{seg.description}</p>
+                <p className="text-[10px] text-[var(--drama-text-secondary)] leading-relaxed line-clamp-2">{seg.description}</p>
                 <div className="flex items-center gap-1.5 mt-1.5">
                   <Badge variant="outline">{seg.shotType}</Badge>
                   <Badge variant="outline">{seg.camera}</Badge>

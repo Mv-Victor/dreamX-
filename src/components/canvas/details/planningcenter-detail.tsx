@@ -49,7 +49,7 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
             className={cn(
               'flex-1 py-1.5 rounded-md text-[10px] font-medium cursor-pointer transition-all',
               activeTab === tab.id
-                ? 'bg-[var(--brand-primary-rgba-20)] text-[var(--brand-accent)]'
+                ? 'bg-[var(--drama-red-bg-20)] text-[var(--drama-red-active)]'
                 : 'bg-transparent text-[var(--text-white-40)]'
             )}
           >
@@ -62,7 +62,7 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
         <DetailSection icon={LayoutGrid} label="Overview">
           <div className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 mb-3">
             <h4 className="text-[10px] text-[var(--text-white-40)] mb-1">核心叙事</h4>
-            <p className="text-xs text-white/70 leading-relaxed">
+            <p className="text-xs text-[var(--drama-text-secondary)] leading-relaxed">
               千年白骨精为求解脱轮回之苦，化身人形接近取经僧人。在伪装的日子里，她逐渐被唐僧的慈悲所打动，一段跨越人妖界限的禁忌之恋就此展开。
             </p>
           </div>
@@ -99,14 +99,14 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
             {mockEpisodes.map((ep, i) => (
               <div
                 key={ep.id}
-                className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 cursor-pointer hover:border-[var(--brand-primary-rgba-40)] transition-colors"
+                className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 cursor-pointer hover:border-[var(--drama-red-border-active)] transition-colors"
               >
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-mono text-[var(--text-white-30)]">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h4 className="text-xs font-medium text-white/70">{ep.title}</h4>
+                    <h4 className="text-xs font-medium text-[var(--drama-text-secondary)]">{ep.title}</h4>
                   </div>
                   <Eye className="h-3.5 w-3.5 text-[var(--text-white-20)]" />
                 </div>

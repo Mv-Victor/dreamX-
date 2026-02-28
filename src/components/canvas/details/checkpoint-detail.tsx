@@ -73,7 +73,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
           onChange={(e) => _updateNodeFn({ episode_count: parseInt(e.target.value) })}
           className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-[var(--bg-white-10)]"
         />
-        <div className="flex justify-between mt-1.5 text-[10px] text-white/30">
+        <div className="flex justify-between mt-1.5 text-[10px] text-[var(--drama-text-muted)]">
           <span>1</span>
           <span>12</span>
         </div>
@@ -90,7 +90,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
           onChange={(e) => _updateNodeFn({ episode_duration: parseInt(e.target.value) })}
           className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-[var(--bg-white-10)]"
         />
-        <div className="flex justify-between mt-1.5 text-[10px] text-white/30">
+        <div className="flex justify-between mt-1.5 text-[10px] text-[var(--drama-text-muted)]">
           <span>15s</span>
           <span>300s</span>
         </div>
@@ -108,14 +108,14 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
                 className={cn(
                   'group rounded-lg overflow-hidden border transition-all cursor-pointer',
                   isSelected
-                    ? 'border-[var(--brand-primary-rgba-60)] bg-[var(--brand-primary-rgba-20)]'
+                    ? 'border-[var(--drama-red-border-active)] bg-[var(--drama-red-bg-20)]'
                     : 'border-[var(--border-white-10)] bg-[var(--bg-white-5)]'
                 )}
               >
               <div className="aspect-video bg-gradient-to-br from-[var(--drama-bg-white-5)] to-[var(--drama-bg-white-2)] flex items-center justify-center relative overflow-hidden">
                 <div className="text-2xl opacity-30">🎨</div>
                 {_data.visual_style_id === style.id && (
-                  <div className="absolute inset-0 bg-[var(--brand-primary-rgba-20)] flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[var(--drama-red-bg-20)] flex items-center justify-center">
                     <span className="text-white text-xs font-medium">✓</span>
                   </div>
                 )}
@@ -141,7 +141,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
           value={_data.idea_text || ''}
           onChange={(e) => _updateNodeFn({ idea_text: e.target.value })}
           placeholder="描述你的创意故事..."
-          className="w-full min-h-[100px] rounded-lg border-[var(--border-white-10)] bg-white/5 px-3 py-2.5 text-xs text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[var(--brand-primary)] resize-none transition-colors"
+          className="w-full min-h-[100px] rounded-lg border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] px-3 py-2.5 text-xs text-[var(--drama-text-primary)] placeholder:text-[var(--drama-text-faint)] focus:outline-none focus:border-[var(--drama-red)] resize-none transition-colors"
         />
       </DetailSection>
 

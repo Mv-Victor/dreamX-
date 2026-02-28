@@ -36,7 +36,7 @@ export const SceneDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sc
                 {scene.status === 'generating' && (
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="w-5 h-5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
+                      <div className="w-5 h-5 border-2 border-[var(--drama-red)] border-t-transparent rounded-full animate-spin mx-auto" />
                       <p className="text-[10px] text-[var(--text-white-60)] mt-2">生成中...</p>
                     </div>
                   </div>
@@ -53,10 +53,10 @@ export const SceneDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sc
               </div>
               <div className="px-3 py-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-white/30">
+                  <span className="text-[10px] font-mono text-[var(--drama-text-muted)]">
                     {String(scene.id).padStart(2, '0')}
                   </span>
-                  <span className="text-xs text-white/60 truncate">{scene.header}</span>
+                  <span className="text-xs text-[var(--drama-text-secondary)] truncate">{scene.header}</span>
                 </div>
                 <StatusBadge status={scene.status} />
               </div>

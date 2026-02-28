@@ -29,7 +29,7 @@ export const StoryBibleDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sto
     <div className="p-5 space-y-5">
       <DetailSection icon={BookOpen} label="Story Options">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs text-white/40">AI 生成了 {STORY_BIBLE_MOCK_DATA.length} 个故事方案</p>
+          <p className="text-xs text-[var(--drama-text-disabled)]">AI 生成了 {STORY_BIBLE_MOCK_DATA.length} 个故事方案</p>
           <Button variant="secondary" size="sm">
             <RefreshCw className="h-3 w-3" />
             重新生成
@@ -48,13 +48,13 @@ export const StoryBibleDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sto
               )}
             >
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-sm font-medium text-white/80">{story.title}</h4>
+                <h4 className="text-sm font-medium text-[var(--drama-text-primary)]">{story.title}</h4>
                 <Badge variant={story.selected ? 'default' : 'secondary'}>
                   {story.genre}
                 </Badge>
               </div>
-              <p className="text-xs text-white/60 mb-2">{story.logline}</p>
-              <p className="text-xs text-white/40 line-clamp-2">{story.synopsis}</p>
+              <p className="text-xs text-[var(--drama-text-secondary)] mb-2">{story.logline}</p>
+              <p className="text-xs text-[var(--drama-text-disabled)] line-clamp-2">{story.synopsis}</p>
             </div>
           ))}
         </div>
