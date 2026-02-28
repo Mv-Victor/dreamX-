@@ -45,9 +45,9 @@ export function DetailPanel({ selectedNodeId, onClose, onNodeComplete }: DetailP
   };
 
   return (
-    <div className="w-[360px] border-l border-white/10 bg-[#0a0a0f] flex flex-col animate-slide-right">
+    <div className="w-[360px] border-l border-[var(--drama-border)] bg-[var(--drama-bg-primary)] flex flex-col animate-slide-right">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-white-10)] bg-[#0a0a0f]/80 backdrop-blur-sm sticky top-0 z-10">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--drama-border)] bg-[var(--drama-bg-primary)]/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="flex items-center gap-2">
           <div className="w-1 h-3.5 rounded-full bg-[var(--brand-primary)]" />
           <h3 className="text-sm font-semibold text-white/90">{displayLabel}</h3>
