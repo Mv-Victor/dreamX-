@@ -22,7 +22,7 @@ const DEFAULT_CHECKPOINT_DATA: CheckPointData = {
   camera_frame_ratio: '9:16',
   episode_count: 1,
   episode_duration: 60,
-  visual_style_id: 0,
+  visual_style_id: 1,
   idea_text: '',
 };
 
