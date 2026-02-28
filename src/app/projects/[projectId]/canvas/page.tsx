@@ -33,6 +33,7 @@ import { ComposeNode } from '@/components/canvas/nodes/compose-node';
 import { EntryNode } from '@/components/canvas/nodes/entry-node';
 import { GenerationTaskList } from '@/components/canvas/generation-task-list';
 import { getCanvasLayout } from '@/lib/canvas-layout';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 import type { WorkflowNodeData } from '@/types/canvas';
 
 // Pro options for ReactFlow (hide attribution)
@@ -90,35 +91,33 @@ const CanvasInner = React.memo(function CanvasInner() {
   // 只在首次加载时设置节点，避免重置用户进度
   useEffect(() => {
     if (initialLoadRef.current) {
-      // 安全处理 projectId，避免特殊字符导致 localStorage 键问题
-      const safeProjectId = projectId.replace(/[^a-zA-Z0-9_-]/g, '_');
-      
       // 尝试从 localStorage 恢复节点位置
-      const savedPositions = localStorage.getItem(`dreamx-nodes-${safeProjectId}`);
-      if (savedPositions) {
-        try {
+      try {
+        const savedPositions = localStorage.getItem(STORAGE_KEYS.nodes(projectId));
+        if (savedPositions) {
           const positions = JSON.parse(savedPositions);
           const nodesWithPositions = initialNodes.map((node) => ({
             ...node,
             position: positions[node.id] || node.position,
           }));
           setNodes(nodesWithPositions);
-        } catch {
+        } else {
           setNodes(initialNodes);
         }
-      } else {
+      } catch (error) {
+        console.error('[Canvas] Failed to restore node positions:', error);
         setNodes(initialNodes);
       }
 
       // 尝试从 localStorage 恢复视口
-      const savedViewport = localStorage.getItem(`dreamx-viewport-${safeProjectId}`);
-      if (savedViewport) {
-        try {
+      try {
+        const savedViewport = localStorage.getItem(STORAGE_KEYS.viewport(projectId));
+        if (savedViewport) {
           const viewport: Viewport = JSON.parse(savedViewport);
           setViewport(viewport);
-        } catch {
-          // ignore
         }
+      } catch (error) {
+        console.error('[Canvas] Failed to restore viewport:', error);
       }
 
       initialLoadRef.current = false;
@@ -147,26 +146,35 @@ const CanvasInner = React.memo(function CanvasInner() {
   // 保存节点位置到 localStorage
   useEffect(() => {
     if (!initialLoadRef.current && nodes.length > 0) {
-      const safeProjectId = projectId.replace(/[^a-zA-Z0-9_-]/g, '_');
       if (viewportSaveRef.current) clearTimeout(viewportSaveRef.current);
       viewportSaveRef.current = setTimeout(() => {
-        const positions: Record<string, { x: number; y: number }> = {};
-        nodes.forEach((node) => {
-          positions[node.id] = { x: node.position.x, y: node.position.y };
-        });
-        localStorage.setItem(`dreamx-nodes-${safeProjectId}`, JSON.stringify(positions));
+        try {
+          const positions: Record<string, { x: number; y: number }> = {};
+          nodes.forEach((node) => {
+            positions[node.id] = { x: node.position.x, y: node.position.y };
+          });
+          localStorage.setItem(STORAGE_KEYS.nodes(projectId), JSON.stringify(positions));
+        } catch (error) {
+          console.error('[Canvas] Failed to save node positions:', error);
+        }
       }, 500);
     }
   }, [nodes, projectId]);
 
   // 保存视口状态到 localStorage
-  const onViewportChange = useCallback((viewport: Viewport) => {
-    const safeProjectId = projectId.replace(/[^a-zA-Z0-9_-]/g, '_');
-    if (viewportSaveRef.current) clearTimeout(viewportSaveRef.current);
-    viewportSaveRef.current = setTimeout(() => {
-      localStorage.setItem(`dreamx-viewport-${safeProjectId}`, JSON.stringify(viewport));
-    }, 500);
-  }, [projectId]);
+  const onViewportChange = useCallback(
+    (viewport: Viewport) => {
+      if (viewportSaveRef.current) clearTimeout(viewportSaveRef.current);
+      viewportSaveRef.current = setTimeout(() => {
+        try {
+          localStorage.setItem(STORAGE_KEYS.viewport(projectId), JSON.stringify(viewport));
+        } catch (error) {
+          console.error('[Canvas] Failed to save viewport:', error);
+        }
+      }, 500);
+    },
+    [projectId]
+  );
 
   // 连接验证：只允许从上到下顺序连接
   const isValidConnection = useCallback(

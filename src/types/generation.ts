@@ -1,7 +1,8 @@
 /**
  * Generation task types
  */
-export type GenerationTaskType = 'image' | 'video' | 'characters' | 'script';
+export const GENERATION_TASK_TYPES = ['image', 'video', 'characters', 'script'] as const;
+export type GenerationTaskType = typeof GENERATION_TASK_TYPES[number];
 export type GenerationTaskStatus = 'pending' | 'processing' | 'completed' | 'failed';
 
 export interface GenerationTask {
