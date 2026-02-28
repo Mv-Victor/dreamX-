@@ -53,7 +53,7 @@ export const ScriptDetail = ({ _nodeData, _updateNode, onNodeComplete }: ScriptD
 
         <div className="space-y-3">
           {episode.scenes.map((scene) => (
-            <div key={scene.scene_number} className="rounded-lg border border-white/10 bg-white/5 p-3 space-y-2">
+            <div key={scene.scene_number} className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 space-y-2">
               <div className="flex items-center gap-2">
                 <Badge variant="default">
                   场景 {String(scene.scene_number).padStart(2, '0')}
@@ -83,7 +83,7 @@ export const ScriptDetail = ({ _nodeData, _updateNode, onNodeComplete }: ScriptD
       </DetailSection>
 
       {/* Action Buttons */}
-      <div className="flex gap-2 pt-2">
+      <div className="flex gap-3 pt-3">
         <Button variant="outline" size="sm" className="flex-1">
           重新生成
         </Button>

@@ -24,20 +24,20 @@ export const ComposeDetail = ({ _nodeData, _updateNode, onNodeComplete }: Compos
   return (
     <div className="p-5 space-y-5">
       <DetailSection icon={Film} label="Preview">
-        <p className="text-xs text-white/40 mb-3">将所有分镜合成为最终视频</p>
+        <p className="text-xs text-[var(--text-white-40)] mb-3">将所有分镜合成为最终视频</p>
 
         {/* Preview */}
-        <div className="aspect-[9/16] max-h-[280px] rounded-lg bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 flex items-center justify-center mx-auto">
+        <div className="aspect-[9/16] max-h-[280px] rounded-lg bg-gradient-to-br from-[var(--drama-bg-white-5)] to-[var(--drama-bg-white-2)] border border-[var(--drama-border)] flex items-center justify-center mx-auto">
           <div className="text-center">
-            <Play className="h-8 w-8 text-white/20 mx-auto" />
-            <p className="text-[10px] text-white/30 mt-2">预览区域</p>
+            <Play className="h-8 w-8 text-[var(--text-white-20)] mx-auto" />
+            <p className="text-[10px] text-[var(--text-white-30)] mt-2">预览区域</p>
           </div>
         </div>
       </DetailSection>
 
       {/* Export Settings */}
       <DetailSection icon={Settings2} label="Export Settings">
-        <div className="rounded-lg border border-white/10 bg-white/5 p-3 space-y-2">
+        <div className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-[10px] text-white/40">分辨率</span>
             <Badge variant="outline">1080p</Badge>
@@ -50,7 +50,7 @@ export const ComposeDetail = ({ _nodeData, _updateNode, onNodeComplete }: Compos
             <span className="text-[10px] text-white/40">字幕</span>
             <Badge variant="outline">内嵌</Badge>
           </div>
-          <div className="flex items-center justify-between pt-2 border-t border-white/10">
+          <div className="flex items-center justify-between pt-2 border-t border-[var(--drama-border)]">
             <span className="text-[10px] text-white/40">预计积分</span>
             <span className="text-[10px] font-medium text-[var(--brand-primary)]">5</span>
           </div>
@@ -58,7 +58,7 @@ export const ComposeDetail = ({ _nodeData, _updateNode, onNodeComplete }: Compos
       </DetailSection>
 
       {/* Action Buttons */}
-      <div className="flex gap-2 pt-2">
+      <div className="flex gap-3 pt-3">
         <Button variant="outline" size="sm" className="flex-1">
           剪映工程
         </Button>

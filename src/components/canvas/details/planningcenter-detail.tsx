@@ -50,7 +50,7 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
               'flex-1 py-1.5 rounded-md text-[10px] font-medium cursor-pointer transition-all',
               activeTab === tab.id
                 ? 'bg-[var(--brand-primary-rgba-20)] text-[var(--brand-accent)]'
-                : 'bg-transparent text-white/40'
+                : 'bg-transparent text-[var(--text-white-40)]'
             )}
           >
             {tab.label}
@@ -60,8 +60,8 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
 
       {activeTab === 'overview' && (
         <DetailSection icon={LayoutGrid} label="Overview">
-          <div className="rounded-lg border border-white/10 bg-white/5 p-3 mb-3">
-            <h4 className="text-[10px] text-white/40 mb-1">核心叙事</h4>
+          <div className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 mb-3">
+            <h4 className="text-[10px] text-[var(--text-white-40)] mb-1">核心叙事</h4>
             <p className="text-xs text-white/70 leading-relaxed">
               千年白骨精为求解脱轮回之苦，化身人形接近取经僧人。在伪装的日子里，她逐渐被唐僧的慈悲所打动，一段跨越人妖界限的禁忌之恋就此展开。
             </p>
@@ -76,10 +76,10 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
 
       {activeTab === 'cover' && (
         <DetailSection icon={ImageIcon} label="Cover">
-          <div className="aspect-[3/4] rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center mb-3">
+          <div className="aspect-[3/4] rounded-lg border border-[var(--drama-border)] bg-gradient-to-br from-[var(--drama-bg-white-5)] to-[var(--drama-bg-white-2)] flex items-center justify-center mb-3">
             <div className="text-center">
-              <ImageIcon className="h-8 w-8 text-white/20 mx-auto mb-2" />
-              <p className="text-[10px] text-white/30">AI 生成封面</p>
+              <ImageIcon className="h-8 w-8 text-[var(--text-white-20)] mx-auto mb-2" />
+              <p className="text-[10px] text-[var(--text-white-30)]">AI 生成封面</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -99,18 +99,18 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
             {mockEpisodes.map((ep, i) => (
               <div
                 key={ep.id}
-                className="rounded-lg border border-white/10 bg-white/5 p-3 cursor-pointer hover:border-white/20 transition-colors"
+                className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-3 cursor-pointer hover:border-[var(--brand-primary-rgba-40)] transition-colors"
               >
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-white/30">
+                    <span className="text-[10px] font-mono text-[var(--text-white-30)]">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <h4 className="text-xs font-medium text-white/70">{ep.title}</h4>
                   </div>
-                  <Eye className="h-3.5 w-3.5 text-white/20" />
+                  <Eye className="h-3.5 w-3.5 text-[var(--text-white-20)]" />
                 </div>
-                <p className="text-[10px] text-white/40 leading-relaxed line-clamp-2">{ep.summary}</p>
+                <p className="text-[10px] text-[var(--text-white-40)] leading-relaxed line-clamp-2">{ep.summary}</p>
                 <div className="mt-2">
                   <Badge variant="outline">
                     {ep.sceneCount} 个场景

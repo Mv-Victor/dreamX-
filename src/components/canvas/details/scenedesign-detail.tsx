@@ -27,17 +27,17 @@ export const SceneDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sc
   return (
     <div className="p-5 space-y-5">
       <DetailSection icon={ImageIcon} label="Scene Design">
-        <p className="text-xs text-white/40 mb-3">AI 为每个场景生成视觉参考图</p>
+        <p className="text-xs text-[var(--text-white-40)] mb-3">AI 为每个场景生成视觉参考图</p>
 
         <div className="space-y-3">
           {SCENE_DESIGN_MOCK_DATA.map((scene) => (
-            <div key={scene.id} className="rounded-lg border border-white/10 bg-white/5 overflow-hidden">
-              <div className="aspect-video bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center relative">
+            <div key={scene.id} className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg overflow-hidden">
+              <div className="aspect-video bg-gradient-to-br from-[var(--drama-bg-white-5)] to-[var(--drama-bg-white-2)] flex items-center justify-center relative">
                 {scene.status === 'generating' && (
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                     <div className="text-center">
                       <div className="w-5 h-5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
-                      <p className="text-[10px] text-white/60 mt-2">生成中...</p>
+                      <p className="text-[10px] text-[var(--text-white-60)] mt-2">生成中...</p>
                     </div>
                   </div>
                 )}
@@ -46,7 +46,7 @@ export const SceneDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sc
                   <>
                     <span className="text-2xl opacity-10">🖼</span>
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                      <Lock className="h-5 w-5 text-white/20" />
+                      <Lock className="h-5 w-5 text-[var(--text-white-20)]" />
                     </div>
                   </>
                 )}
@@ -66,7 +66,7 @@ export const SceneDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sc
       </DetailSection>
 
       {/* Action Buttons */}
-      <div className="flex gap-2 pt-2">
+      <div className="flex gap-3 pt-3">
         <Button variant="outline" size="sm" className="flex-1">
           <RefreshCw className="h-3.5 w-3.5" />
           重新生成

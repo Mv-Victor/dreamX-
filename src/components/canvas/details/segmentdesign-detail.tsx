@@ -38,9 +38,9 @@ export const SegmentDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: 
 
         <div className="space-y-2">
           {SEGMENT_DESIGN_MOCK_DATA.map((seg) => (
-            <div key={seg.id} className="rounded-lg border border-white/10 bg-white/5 p-2.5 flex gap-3">
+            <div key={seg.id} className="rounded-xl border border-[var(--drama-border)] bg-[var(--drama-bg-white-5)] shadow-lg p-2.5 flex gap-3">
               {/* Thumbnail */}
-              <div className="w-16 h-12 rounded-md bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center flex-shrink-0 relative border border-white/10">
+              <div className="w-16 h-12 rounded-md bg-gradient-to-br from-[var(--drama-bg-white-5)] to-[var(--drama-bg-white-2)] flex items-center justify-center flex-shrink-0 relative border border-[var(--drama-border)]">
                 {seg.status === 'completed' && (
                   <Play className="h-4 w-4 text-white/40" />
                 )}
@@ -72,7 +72,7 @@ export const SegmentDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: 
       </DetailSection>
 
       {/* Action Buttons */}
-      <div className="flex gap-2 pt-2">
+      <div className="flex gap-3 pt-3">
         <Button variant="outline" size="sm" className="flex-1">
           <RefreshCw className="h-3.5 w-3.5" />
           重新生成

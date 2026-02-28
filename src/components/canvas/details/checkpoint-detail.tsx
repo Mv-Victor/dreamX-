@@ -112,7 +112,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
                     : 'border-[var(--border-white-10)] bg-[var(--bg-white-5)]'
                 )}
               >
-              <div className="aspect-video bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center relative overflow-hidden">
+              <div className="aspect-video bg-gradient-to-br from-[var(--drama-bg-white-5)] to-[var(--drama-bg-white-2)] flex items-center justify-center relative overflow-hidden">
                 <div className="text-2xl opacity-30">🎨</div>
                 {_data.visual_style_id === style.id && (
                   <div className="absolute inset-0 bg-[var(--brand-primary-rgba-20)] flex items-center justify-center">
@@ -121,7 +121,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
                 )}
               </div>
               <div className="px-2 py-2">
-                <p className="text-[10px] font-medium text-white/80 truncate">{style.title}</p>
+                <p className="text-[10px] font-medium text-[var(--text-white-80)] truncate">{style.title}</p>
                 <Badge variant="outline" className="mt-1">
                   {style.type}
                 </Badge>
@@ -130,7 +130,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
             );
           })}
         </div>
-        <button className="w-full mt-2 text-[10px] text-white/40 hover:text-white/60 transition-colors flex items-center justify-center gap-1 cursor-pointer">
+        <button className="w-full mt-2 text-[10px] text-[var(--text-white-40)] hover:text-[var(--text-white-60)] transition-colors flex items-center justify-center gap-1 cursor-pointer">
           查看全部风格 <ChevronRight className="h-3 w-3" />
         </button>
       </DetailSection>
@@ -141,7 +141,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
           value={_data.idea_text || ''}
           onChange={(e) => _updateNodeFn({ idea_text: e.target.value })}
           placeholder="描述你的创意故事..."
-          className="w-full min-h-[100px] rounded-lg border-[var(--border-white-10)] bg-white/5 px-3 py-2.5 text-xs text-white/80 placeholder:text-white/20 focus:outline-none focus:border-white/20 resize-none transition-colors"
+          className="w-full min-h-[100px] rounded-lg border-[var(--border-white-10)] bg-white/5 px-3 py-2.5 text-xs text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[var(--brand-primary)] resize-none transition-colors"
         />
       </DetailSection>
 
