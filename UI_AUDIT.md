@@ -1,14 +1,14 @@
 # DreamX Studio UI 校验报告
 
-**最后更新**: 2026-02-28 03:45 UTC  
+**最后更新**: 2026-02-28 03:50 UTC  
 **评审状态**: ✅ 评审通过，**可立即上线**  
-**最新提交**: `5d08775`
+**最新提交**: `a2b8e3f`
 
 ---
 
-## 📊 最终评审结论（G 03:34 UTC）
+## 📊 最终评审结论（G 03:45 UTC）
 
-**综合评分**: 9.0/10  
+**综合评分**: 9.2/10  
 **状态**: ✅ **可立即上线**
 
 ---
@@ -22,17 +22,16 @@
 | **UI 对齐 Drama.Land** | **9.5/10** | ✅ 优秀 |
 | **TypeScript 类型** | **9.0/10** | ✅ 优秀 |
 | **性能优化** | **9.5/10** | ✅ 优秀 |
-| **综合** | **9.0/10** | ✅ **可立即上线** |
+| **综合** | **9.2/10** | ✅ **可立即上线** |
 
 ---
 
-## ✅ P1 修复完成（03:45 UTC）
+## ✅ P1 修复完成（03:50 UTC）
 
 | # | 问题 | 修复 | 状态 |
 |---|------|------|------|
-| M1 | onPaneContextMenu 类型 | 使用 React.MouseEvent + eslint-disable | ✅ |
-| M2 | handleAddNode 坐标转换 | 使用 screenToFlowPosition API | ✅ |
-| P2 | 清理未使用 Props | _nodeData/_updateNode 命名约定 | ✅ |
+| 1 | Props 命名不一致 | CheckPointDetail 统一为 _nodeData/_updateNode | ✅ |
+| 2 | data 可能 undefined | 添加默认值 `|| {} as CheckPointData` | ✅ |
 
 ---
 
@@ -44,18 +43,18 @@
 4. **性能优化充分** - React.memo + useMemo + useCallback
 5. **样式对齐** - CSS 变量统一，渐变 ID 动态化
 6. **API 安全** - 后端代理 + localStorage 键安全 (lib/storage-keys.ts)
-7. **Props 统一** - 所有 Detail 组件支持 _nodeData/_updateNode/onNodeComplete
+7. **Props 统一** - 所有 Detail 组件使用 _nodeData/_updateNode 命名约定
 
 ---
 
-## ✅ 修复汇总（37 项）
+## ✅ 修复汇总（38 项）
 
 | 类别 | 问题数 | 状态 |
 |------|--------|------|
 | P0 安全 | 8 项 | ✅ |
-| P1 代码质量 | 19 项 | ✅ |
+| P1 代码质量 | 20 项 | ✅ |
 | P2 优化 | 9 项 | ✅ |
-| **总计** | **37 项** | ✅ |
+| **总计** | **38 项** | ✅ |
 
 ---
 
@@ -74,6 +73,8 @@
 ## 📝 提交历史
 
 ```
+a2b8e3f fix(P1): 统一 CheckPointDetail Props 命名
+760f89f docs: 更新日志 - P1 M1/M2 修复完成
 5d08775 fix(P1): M1/M2 修复 + 清理未使用 Props
 1edfe92 docs: 更新日志 - P1 Props 统一完成
 3d68229 fix(P1): DetailPanel 子组件 Props 统一
@@ -103,7 +104,7 @@ f6b53aa fix(P0): 安全修复 - API 代理层 + 样式变量统一
 
 ## ✅ 最终状态
 
-**P0 + P1 + P2**: 37 项问题全部修复 ✅  
+**P0 + P1 + P2**: 38 项问题全部修复 ✅  
 **可上线状态**: ✅ **可立即上线**  
 **技术债务**: 低  
 **P3 改进**: 不影响上线，下 sprint 处理
@@ -111,4 +112,4 @@ f6b53aa fix(P0): 安全修复 - API 代理层 + 样式变量统一
 ---
 
 **评审人**: G  
-**最后更新**: 2026-02-28 03:45 UTC
+**最后更新**: 2026-02-28 03:50 UTC
