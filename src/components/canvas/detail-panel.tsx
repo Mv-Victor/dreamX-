@@ -4,7 +4,7 @@ import { useReactFlow } from '@xyflow/react';
 import dynamic from 'next/dynamic';
 import { X } from 'lucide-react';
 import { Spinner } from '@/components/ui/spinner';
-import type { WorkflowNodeData } from '@/types/canvas';
+import type { WorkflowNodeData, CheckPointData, StoryBibleData, CharacterPackData, PlanningCenterData, ScriptData, SceneDesignData, SegmentDesignData, ComposeData } from '@/types/canvas';
 
 const DetailLoading = () => (
   <div className="flex items-center justify-center h-40">
@@ -63,15 +63,15 @@ export function DetailPanel({ selectedNodeId, onClose, onNodeComplete }: DetailP
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         {nodeType === 'checkpoint' && (
-          <CheckPointDetail nodeData={nodeData} updateNode={updateNode} onNodeComplete={() => onNodeComplete?.(selectedNodeId)} />
+          <CheckPointDetail nodeData={nodeData as CheckPointData} updateNode={updateNode} onNodeComplete={() => onNodeComplete?.(selectedNodeId)} />
         )}
-        {nodeType === 'storybible' && <StoryBibleDetail nodeData={nodeData} updateNode={updateNode} />}
-        {nodeType === 'characterpack' && <CharacterPackDetail nodeData={nodeData} updateNode={updateNode} />}
-        {nodeType === 'planningcenter' && <PlanningCenterDetail nodeData={nodeData} updateNode={updateNode} />}
-        {nodeType === 'script' && <ScriptDetail nodeData={nodeData} updateNode={updateNode} />}
-        {nodeType === 'scenedesign' && <SceneDesignDetail nodeData={nodeData} updateNode={updateNode} />}
-        {nodeType === 'segmentdesign' && <SegmentDesignDetail nodeData={nodeData} updateNode={updateNode} />}
-        {nodeType === 'compose' && <ComposeDetail nodeData={nodeData} updateNode={updateNode} />}
+        {nodeType === 'storybible' && <StoryBibleDetail />}
+        {nodeType === 'characterpack' && <CharacterPackDetail />}
+        {nodeType === 'planningcenter' && <PlanningCenterDetail />}
+        {nodeType === 'script' && <ScriptDetail />}
+        {nodeType === 'scenedesign' && <SceneDesignDetail />}
+        {nodeType === 'segmentdesign' && <SegmentDesignDetail />}
+        {nodeType === 'compose' && <ComposeDetail />}
       </div>
     </div>
   );

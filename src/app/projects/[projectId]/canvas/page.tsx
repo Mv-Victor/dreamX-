@@ -65,7 +65,7 @@ const CanvasInner = React.memo(function CanvasInner() {
   const params = useParams();
   const router = useRouter();
   const projectId = params.projectId as string;
-  const { projects, selectProject, currentProject, loadProjects, setSelectedNodeId } = useProjectStore();
+  const { projects, selectProject, currentProject, loadProjects, selectedNodeId, setSelectedNodeId } = useProjectStore();
   const [chatOpen, setChatOpen] = useState(true);
   const { updateNodeData, getNodes, setViewport, addNodes } = useReactFlow();
   const initialLoadRef = useRef(true);
@@ -202,22 +202,16 @@ const CanvasInner = React.memo(function CanvasInner() {
     []
   );
 
-  const onConnectStart = useCallback(() => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onConnectStart = useCallback((_: any) => {
     setConnectionStatus(null);
   }, []);
 
-  const onConnectEnd = useCallback(
-    (edge: Edge | Connection) => {
-      const valid = isValidConnection(edge);
-      if (!valid) {
-        // Show toast for invalid connection
-        console.warn('[Canvas] Invalid connection attempted:', edge);
-        // Toast will be added in future iteration
-      }
-      setConnectionStatus(null);
-    },
-    [isValidConnection]
-  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onConnectEnd = useCallback((_: any) => {
+    // Connection end handled by isValidConnection + onConnect
+    setConnectionStatus(null);
+  }, []);
 
   const connectionLineStyle = useMemo(
     () => ({
@@ -244,11 +238,13 @@ const CanvasInner = React.memo(function CanvasInner() {
     [setSelectedNodeId]
   );
 
-  const onPaneClick = useCallback(() => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onPaneClick = useCallback((_event: any) => {
     setSelectedNodeId(null);
   }, [setSelectedNodeId]);
 
-  const onPaneContextMenu = useCallback((event: React.MouseEvent) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onPaneContextMenu = useCallback((event: any) => {
     event.preventDefault();
     setContextMenu({ x: event.clientX, y: event.clientY });
   }, []);
