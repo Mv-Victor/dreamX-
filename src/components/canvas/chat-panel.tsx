@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { useProjectStore } from '@/stores/project-store';
 import { Send, Bot, User, Sparkles } from 'lucide-react';
@@ -15,7 +15,7 @@ export function ChatPanel() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [chatMessages.length]);
 
-  const handleSend = async () => {
+  const handleSend = useCallback(async () => {
     const text = input.trim();
     if (!text) return;
     setInput('');
@@ -34,7 +34,7 @@ export function ChatPanel() {
     ];
     addChatMessage('assistant', responses[Math.floor(Math.random() * responses.length)]);
     setIsTyping(false);
-  };
+  }, [input, addChatMessage]);
 
   return (
     <div className="w-[360px] border-r border-white/10 flex flex-col bg-[#050505] animate-slide-left">

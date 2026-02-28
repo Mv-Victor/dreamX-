@@ -7,12 +7,12 @@ import { X, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
  * 任务类型文案映射
  * 便于国际化和统一维护
  */
-const TASK_TYPE_LABELS: Record<string, string> = {
+export const TASK_TYPE_LABELS = Object.freeze({
   image: '生成图片',
   video: '生成视频',
   characters: '生成角色集',
   script: '生成剧本',
-};
+});
 
 export function GenerationTaskList() {
   const { generationTasks, removeGenerationTask } = useProjectStore();
