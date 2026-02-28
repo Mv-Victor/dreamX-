@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Sparkles, ChevronRight, Monitor, Shield, Film, Clock, Type, Image as ImageIcon, FileText } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { DetailSection } from '@/components/ui/detail-section';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -70,8 +71,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
           max={12}
           value={data.episode_count || 1}
           onChange={(e) => updateNode({ episode_count: parseInt(e.target.value) })}
-          className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
-          style={{ background: 'var(--bg-white-10)' }}
+          className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-[var(--bg-white-10)]"
         />
         <div className="flex justify-between mt-1.5 text-[10px] text-white/30">
           <span>1</span>
@@ -88,8 +88,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
           step={15}
           value={data.episode_duration || 60}
           onChange={(e) => updateNode({ episode_duration: parseInt(e.target.value) })}
-          className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
-          style={{ background: 'var(--bg-white-10)' }}
+          className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-[var(--bg-white-10)]"
         />
         <div className="flex justify-between mt-1.5 text-[10px] text-white/30">
           <span>15s</span>
@@ -100,16 +99,19 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
       {/* Visual Style */}
       <DetailSection icon={ImageIcon} label="Visual Style">
         <div className="grid grid-cols-2 gap-2">
-          {visualStyles.slice(0, 4).map((style) => (
-            <button
-              key={style.id}
-              onClick={() => updateNode({ visual_style_id: style.id })}
-              className="group rounded-lg overflow-hidden border transition-all cursor-pointer"
-              style={{
-                border: data.visual_style_id === style.id ? '1px solid var(--brand-primary-rgba-60)' : '1px solid var(--border-white-10)',
-                background: data.visual_style_id === style.id ? 'var(--brand-primary-rgba-20)' : 'var(--bg-white-5)',
-              }}
-            >
+          {visualStyles.slice(0, 4).map((style) => {
+            const isSelected = data.visual_style_id === style.id;
+            return (
+              <button
+                key={style.id}
+                onClick={() => updateNode({ visual_style_id: style.id })}
+                className={cn(
+                  'group rounded-lg overflow-hidden border transition-all cursor-pointer',
+                  isSelected
+                    ? 'border-[var(--brand-primary-rgba-60)] bg-[var(--brand-primary-rgba-20)]'
+                    : 'border-[var(--border-white-10)] bg-[var(--bg-white-5)]'
+                )}
+              >
               <div className="aspect-video bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center relative overflow-hidden">
                 <div className="text-2xl opacity-30">🎨</div>
                 {data.visual_style_id === style.id && (
@@ -125,7 +127,8 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
                 </Badge>
               </div>
             </button>
-          ))}
+            );
+          })}
         </div>
         <button className="w-full mt-2 text-[10px] text-white/40 hover:text-white/60 transition-colors flex items-center justify-center gap-1 cursor-pointer">
           查看全部风格 <ChevronRight className="h-3 w-3" />
@@ -138,8 +141,7 @@ export const CheckPointDetail = ({ _nodeData, _updateNode, onNodeComplete }: Che
           value={data.idea_text || ''}
           onChange={(e) => updateNode({ idea_text: e.target.value })}
           placeholder="描述你的创意故事..."
-          className="w-full min-h-[100px] rounded-lg border bg-white/5 px-3 py-2.5 text-xs text-white/80 placeholder:text-white/20 focus:outline-none focus:border-white/20 resize-none transition-colors"
-          style={{ borderColor: 'var(--border-white-10)' }}
+          className="w-full min-h-[100px] rounded-lg border-[var(--border-white-10)] bg-white/5 px-3 py-2.5 text-xs text-white/80 placeholder:text-white/20 focus:outline-none focus:border-white/20 resize-none transition-colors"
         />
       </DetailSection>
 

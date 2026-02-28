@@ -14,12 +14,7 @@ interface SceneDesignDetailProps {
   onNodeComplete?: () => void;
 }
 
-const SCENE_DESIGN_MOCK_DATA = [
-  { id: 1, header: '外景 - 荒山古道 - 黄昏', status: 'completed' as const },
-  { id: 2, header: '内景 - 白骨洞 - 夜', status: 'generating' as const },
-  { id: 3, header: '外景 - 山间小路 - 清晨', status: 'pending' as const },
-  { id: 4, header: '内景 - 客栈 - 午后', status: 'pending' as const },
-];
+import { SCENE_DESIGN_MOCK_DATA } from '@/mock/scene-design-mock';
 
 export const SceneDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: SceneDesignDetailProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

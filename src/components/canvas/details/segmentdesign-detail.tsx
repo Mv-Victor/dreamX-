@@ -15,13 +15,7 @@ interface SegmentDesignDetailProps {
   onNodeComplete?: () => void;
 }
 
-const SEGMENT_DESIGN_MOCK_DATA = [
-  { id: 1, description: '夕阳下的荒山古道，镜头缓缓推进', shotType: '远景', camera: '推镜头', duration: '4s', status: 'completed' as const },
-  { id: 2, description: '悟空警觉地环顾四周', shotType: '中景', camera: '跟拍', duration: '3s', status: 'completed' as const },
-  { id: 3, description: '唐僧坚定地望向前方', shotType: '特写', camera: '固定', duration: '2s', status: 'generating' as const },
-  { id: 4, description: '白骨洞内，骨制王座的全貌', shotType: '全景', camera: '摇镜头', duration: '4s', status: 'pending' as const },
-  { id: 5, description: '白骨夫人缓缓睁开冰蓝色的眼睛', shotType: '大特写', camera: '固定', duration: '3s', status: 'pending' as const },
-];
+import { SEGMENT_DESIGN_MOCK_DATA } from '@/mock/segment-design-mock';
 
 export const SegmentDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: SegmentDesignDetailProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
