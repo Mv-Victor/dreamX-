@@ -16,11 +16,9 @@ interface ComposeDetailProps {
 
 export const ComposeDetail = ({ _nodeData, _updateNode, onNodeComplete }: ComposeDetailProps) => {
   // data is initialized for API consistency but not used directly in this component
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- data is initialized for API consistency but not used directly in this component
-  const data = { ...DEFAULT_COMPOSE_DATA, ..._nodeData };
+  const _data = { ...DEFAULT_COMPOSE_DATA, ..._nodeData };
   // updateNode is initialized for API consistency; fallback logs warning if not provided
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- updateNode is initialized for API consistency; fallback logs warning if not provided
-  const updateNode = _updateNode || ((patch) => {
+  const _update = _updateNode || ((patch) => {
     console.warn('[ComposeDetail] updateNode not provided:', patch);
   });
   return (

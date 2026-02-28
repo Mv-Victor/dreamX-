@@ -19,9 +19,9 @@ import { SEGMENT_DESIGN_MOCK_DATA } from '@/mock/segment-design-mock';
 
 export const SegmentDesignDetail = ({ _nodeData, _updateNode, onNodeComplete }: SegmentDesignDetailProps) => {
   // data is initialized for API consistency but not used directly in this component
-  const data = { ...DEFAULT_SEGMENT_DESIGN_DATA, ..._nodeData }; // eslint-disable-line @typescript-eslint/no-unused-vars
+  const _data = { ...DEFAULT_SEGMENT_DESIGN_DATA, ..._nodeData };
   // updateNode is initialized for API consistency; fallback logs warning if not provided
-  const updateNode = _updateNode || ((patch) => { // eslint-disable-line @typescript-eslint/no-unused-vars
+  const _update = _updateNode || ((patch) => {
     console.warn('[SegmentDesignDetail] updateNode not provided:', patch);
   });
 

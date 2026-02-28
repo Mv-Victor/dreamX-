@@ -18,9 +18,9 @@ interface CharacterPackDetailProps {
 
 export const CharacterPackDetail = ({ _nodeData, _updateNode, onNodeComplete }: CharacterPackDetailProps) => {
   // data is initialized for API consistency but not used directly in this component
-  const data = { ...DEFAULT_CHARACTER_PACK_DATA, ..._nodeData }; // eslint-disable-line @typescript-eslint/no-unused-vars
+  const _data = { ...DEFAULT_CHARACTER_PACK_DATA, ..._nodeData };
   // updateNode is initialized for API consistency; fallback logs warning if not provided
-  const updateNode = _updateNode || ((patch) => { // eslint-disable-line @typescript-eslint/no-unused-vars
+  const _update = _updateNode || ((patch) => {
     console.warn('[CharacterPackDetail] updateNode not provided:', patch);
   });
   const { characters, voices, loadVoices } = useProjectStore();

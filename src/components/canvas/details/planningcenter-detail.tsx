@@ -18,9 +18,9 @@ interface PlanningCenterDetailProps {
 
 export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }: PlanningCenterDetailProps) => {
   // data is initialized for API consistency but not used directly in this component
-  const data = { ...DEFAULT_PLANNING_CENTER_DATA, ..._nodeData }; // eslint-disable-line @typescript-eslint/no-unused-vars
+  const _data = { ...DEFAULT_PLANNING_CENTER_DATA, ..._nodeData };
   // updateNode is initialized for API consistency; fallback logs warning if not provided
-  const updateNode = _updateNode || ((patch) => { // eslint-disable-line @typescript-eslint/no-unused-vars
+  const _update = _updateNode || ((patch) => {
     console.warn('[PlanningCenterDetail] updateNode not provided:', patch);
   });
   const [activeTab, setActiveTab] = useState('overview');
