@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Sparkles, LayoutGrid, Image as ImageIcon, Film, Eye } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { DetailSection } from '@/components/ui/detail-section';
 import { Button } from '@/components/ui/button';
@@ -40,16 +41,17 @@ export const PlanningCenterDetail = ({ _nodeData, _updateNode, onNodeComplete }:
   return (
     <div className="p-4 space-y-4">
       {/* Tabs */}
-      <div className="flex gap-1 rounded-lg p-1" style={{ background: 'rgba(255,255,255,0.05)' }}>
+      <div className="flex gap-1 rounded-lg p-1 bg-[var(--bg-white-5)]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className="flex-1 py-1.5 rounded-md text-[10px] font-medium cursor-pointer transition-all"
-            style={{
-              background: activeTab === tab.id ? 'rgba(192,3,28,0.20)' : 'transparent',
-              color: activeTab === tab.id ? '#FF4D4D' : 'rgba(255,255,255,0.40)',
-            }}
+            className={cn(
+              'flex-1 py-1.5 rounded-md text-[10px] font-medium cursor-pointer transition-all',
+              activeTab === tab.id
+                ? 'bg-[var(--brand-primary-rgba-20)] text-[var(--brand-accent)]'
+                : 'bg-transparent text-white/40'
+            )}
           >
             {tab.label}
           </button>

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Sparkles, RefreshCw, BookOpen } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { DetailSection } from '@/components/ui/detail-section';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -39,11 +40,12 @@ export const StoryBibleDetail = ({ _nodeData, _updateNode, onNodeComplete }: Sto
           {STORY_BIBLE_MOCK_DATA.map((story) => (
             <div
               key={story.id}
-              className="rounded-lg border p-3 cursor-pointer transition-all"
-              style={{
-                border: story.selected ? 'var(--drama-red-border-active)' : 'var(--drama-border)',
-                background: story.selected ? 'var(--drama-red-bg)' : 'var(--drama-bg-white-5)',
-              }}
+              className={cn(
+                'rounded-lg border p-3 cursor-pointer transition-all',
+                story.selected
+                  ? 'border-[var(--drama-red-border-active)] bg-[var(--drama-red-bg)]'
+                  : 'border-[var(--drama-border)] bg-[var(--drama-bg-white-5)]'
+              )}
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="text-sm font-medium text-white/80">{story.title}</h4>

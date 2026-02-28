@@ -89,12 +89,12 @@ export const CharacterPackDetail = ({ _nodeData, _updateNode, onNodeComplete }: 
 
               {/* Voice */}
               {char.voice_id && (
-                <div className="flex items-center gap-2 rounded-md px-2.5 py-1.5" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                  <Volume2 className="h-3 w-3 text-[#FF4D4D]" />
+                <div className="flex items-center gap-2 rounded-md px-2.5 py-1.5 bg-[var(--bg-white-5)]">
+                  <Volume2 className="h-3 w-3 text-[var(--brand-accent)]" />
                   <span className="text-[10px] text-white/60">
                     {voices.find((v) => v.id === char.voice_id)?.name || '未选择'}
                   </span>
-                  <button className="ml-auto text-[10px] text-[#FF4D4D] hover:underline cursor-pointer">切换</button>
+                  <button className="ml-auto text-[10px] text-[var(--brand-accent)] hover:underline cursor-pointer">切换</button>
                 </div>
               )}
             </div>

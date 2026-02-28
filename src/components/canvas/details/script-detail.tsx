@@ -73,7 +73,7 @@ export const ScriptDetail = ({ _nodeData, _updateNode, onNodeComplete }: ScriptD
 
               {/* VO */}
               {scene.vo_narration && (
-                <div className="rounded-md px-2.5 py-1.5" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                <div className="rounded-md px-2.5 py-1.5 bg-[var(--bg-white-5)]">
                   <p className="text-[10px] text-white/40 italic">🎙 {scene.vo_narration}</p>
                 </div>
               )}
