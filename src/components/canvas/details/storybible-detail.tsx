@@ -7,12 +7,10 @@ import { Badge } from '@/components/ui/badge';
 import type { StoryBibleData } from '@/types/canvas';
 
 interface StoryBibleDetailProps {
-  _nodeData?: StoryBibleData;
-  _updateNode?: (patch: Partial<StoryBibleData>) => void;
   onNodeComplete?: () => void;
 }
 
-const mockStoryBibles = [
+const STORY_BIBLE_MOCK_DATA = [
   {
     id: 1,
     title: '命运交织',
@@ -39,13 +37,12 @@ const mockStoryBibles = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function StoryBibleDetail({ _nodeData, _updateNode, onNodeComplete }: StoryBibleDetailProps) {
+export function StoryBibleDetail({ onNodeComplete }: StoryBibleDetailProps) {
   return (
     <div className="p-4 space-y-4">
       <DetailSection icon={BookOpen} label="Story Options">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs text-white/40">AI 生成了 {mockStoryBibles.length} 个故事方案</p>
+          <p className="text-xs text-white/40">AI 生成了 {STORY_BIBLE_MOCK_DATA.length} 个故事方案</p>
           <Button variant="secondary" size="sm">
             <RefreshCw className="h-3 w-3" />
             重新生成
@@ -53,7 +50,7 @@ export function StoryBibleDetail({ _nodeData, _updateNode, onNodeComplete }: Sto
         </div>
 
         <div className="space-y-3">
-          {mockStoryBibles.map((story) => (
+          {STORY_BIBLE_MOCK_DATA.map((story) => (
             <div
               key={story.id}
               className="rounded-lg border p-3 cursor-pointer transition-all"

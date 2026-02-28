@@ -8,12 +8,10 @@ import { Badge } from '@/components/ui/badge';
 import type { SegmentDesignData } from '@/types/canvas';
 
 interface SegmentDesignDetailProps {
-  _nodeData?: SegmentDesignData;
-  _updateNode?: (patch: Partial<SegmentDesignData>) => void;
   onNodeComplete?: () => void;
 }
 
-const mockSegments = [
+const SEGMENT_DESIGN_MOCK_DATA = [
   { id: 1, description: '夕阳下的荒山古道，镜头缓缓推进', shotType: '远景', camera: '推镜头', duration: '4s', status: 'completed' as const },
   { id: 2, description: '悟空警觉地环顾四周', shotType: '中景', camera: '跟拍', duration: '3s', status: 'completed' as const },
   { id: 3, description: '唐僧坚定地望向前方', shotType: '特写', camera: '固定', duration: '2s', status: 'generating' as const },
@@ -21,13 +19,12 @@ const mockSegments = [
   { id: 5, description: '白骨夫人缓缓睁开冰蓝色的眼睛', shotType: '大特写', camera: '固定', duration: '3s', status: 'pending' as const },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function SegmentDesignDetail({ _nodeData, _updateNode, onNodeComplete }: SegmentDesignDetailProps) {
+export function SegmentDesignDetail({ onNodeComplete }: SegmentDesignDetailProps) {
   return (
     <div className="p-4 space-y-4">
       <DetailSection icon={Clapperboard} label="Segments">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs text-white/40">{mockSegments.length} 个分镜</p>
+          <p className="text-xs text-white/40">{SEGMENT_DESIGN_MOCK_DATA.length} 个分镜</p>
           <div className="flex items-center gap-1 text-xs text-white/40">
             <span>总时长</span>
             <span className="text-white/60 font-medium">16s</span>
@@ -35,7 +32,7 @@ export function SegmentDesignDetail({ _nodeData, _updateNode, onNodeComplete }: 
         </div>
 
         <div className="space-y-2">
-          {mockSegments.map((seg) => (
+          {SEGMENT_DESIGN_MOCK_DATA.map((seg) => (
             <div key={seg.id} className="rounded-lg border border-white/10 bg-white/5 p-2.5 flex gap-3">
               {/* Thumbnail */}
               <div className="w-16 h-12 rounded-md bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center flex-shrink-0 relative border border-white/10">

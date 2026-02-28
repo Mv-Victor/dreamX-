@@ -7,27 +7,24 @@ import { StatusBadge } from '@/components/ui/status-badge';
 import type { SceneDesignData } from '@/types/canvas';
 
 interface SceneDesignDetailProps {
-  _nodeData?: SceneDesignData;
-  _updateNode?: (patch: Partial<SceneDesignData>) => void;
   onNodeComplete?: () => void;
 }
 
-const mockScenes = [
+const SCENE_DESIGN_MOCK_DATA = [
   { id: 1, header: '外景 - 荒山古道 - 黄昏', status: 'completed' as const },
   { id: 2, header: '内景 - 白骨洞 - 夜', status: 'generating' as const },
   { id: 3, header: '外景 - 山间小路 - 清晨', status: 'pending' as const },
   { id: 4, header: '内景 - 客栈 - 午后', status: 'pending' as const },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function SceneDesignDetail({ _nodeData, _updateNode, onNodeComplete }: SceneDesignDetailProps) {
+export function SceneDesignDetail({ onNodeComplete }: SceneDesignDetailProps) {
   return (
     <div className="p-4 space-y-4">
       <DetailSection icon={ImageIcon} label="Scene Design">
         <p className="text-xs text-white/40 mb-3">AI 为每个场景生成视觉参考图</p>
 
         <div className="space-y-3">
-          {mockScenes.map((scene) => (
+          {SCENE_DESIGN_MOCK_DATA.map((scene) => (
             <div key={scene.id} className="rounded-lg border border-white/10 bg-white/5 overflow-hidden">
               <div className="aspect-video bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center relative">
                 {scene.status === 'generating' && (

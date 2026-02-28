@@ -7,13 +7,10 @@ import { Badge } from '@/components/ui/badge';
 import type { ComposeData } from '@/types/canvas';
 
 interface ComposeDetailProps {
-  _nodeData?: ComposeData;
-  _updateNode?: (patch: Partial<ComposeData>) => void;
   onNodeComplete?: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function ComposeDetail({ _nodeData, _updateNode, onNodeComplete }: ComposeDetailProps) {
+export function ComposeDetail({ onNodeComplete }: ComposeDetailProps) {
   return (
     <div className="p-4 space-y-4">
       <DetailSection icon={Film} label="Preview">

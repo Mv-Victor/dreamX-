@@ -7,24 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import { SegmentedControl } from '@/components/ui/segmented-control';
 import type { CheckPointData } from '@/types/canvas';
 import { visualStyles } from '@/mock/visual-styles';
+import { DEFAULT_CHECKPOINT_DATA } from '@/lib/defaults';
 
 interface CheckPointDetailProps {
   _nodeData?: CheckPointData;
   _updateNode?: (patch: Partial<CheckPointData>) => void;
   onNodeComplete?: () => void;
 }
-
-const DEFAULT_CHECKPOINT_DATA: CheckPointData = {
-  label: '创意构思',
-  status: 'generating',
-  language: 'zh-CN',
-  rating: 'PG',
-  camera_frame_ratio: '9:16',
-  episode_count: 1,
-  episode_duration: 60,
-  visual_style_id: 1,
-  idea_text: '',
-};
 
 export function CheckPointDetail({ _nodeData, _updateNode, onNodeComplete }: CheckPointDetailProps) {
   const data = { ...DEFAULT_CHECKPOINT_DATA, ..._nodeData };

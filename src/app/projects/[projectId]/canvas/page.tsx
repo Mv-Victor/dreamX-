@@ -35,6 +35,7 @@ import { EntryNode } from '@/components/canvas/nodes/entry-node';
 import { GenerationTaskList } from '@/components/canvas/generation-task-list';
 import { getCanvasLayout } from '@/lib/canvas-layout';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { MIN_ZOOM, MAX_ZOOM, FIT_VIEW_PADDING, VIEWPORT_SAVE_DEBOUNCE_MS } from '@/lib/defaults';
 import type { WorkflowNodeData } from '@/types/canvas';
 
 // Pro options for ReactFlow (hide attribution)
@@ -165,7 +166,7 @@ const CanvasInner = React.memo(function CanvasInner() {
         } catch (error) {
           console.error('[Canvas] Failed to save node positions:', error);
         }
-      }, 500);
+      }, VIEWPORT_SAVE_DEBOUNCE_MS);
     }
   }, [nodes, projectId]);
 
@@ -179,7 +180,7 @@ const CanvasInner = React.memo(function CanvasInner() {
         } catch (error) {
           console.error('[Canvas] Failed to save viewport:', error);
         }
-      }, 500);
+      }, VIEWPORT_SAVE_DEBOUNCE_MS);
     },
     [projectId]
   );
@@ -321,9 +322,9 @@ const CanvasInner = React.memo(function CanvasInner() {
             isValidConnection={isValidConnection}
             connectionLineStyle={connectionLineStyle}
             fitView
-            fitViewOptions={{ padding: 0.3 }}
-            minZoom={0.3}
-            maxZoom={2}
+            fitViewOptions={{ padding: FIT_VIEW_PADDING }}
+            minZoom={MIN_ZOOM}
+            maxZoom={MAX_ZOOM}
             proOptions={PRO_OPTIONS}
           >
             <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="rgba(255,255,255,0.05)" />

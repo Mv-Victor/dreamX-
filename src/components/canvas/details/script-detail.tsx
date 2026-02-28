@@ -8,13 +8,10 @@ import { Badge } from '@/components/ui/badge';
 import type { ScriptData } from '@/types/canvas';
 
 interface ScriptDetailProps {
-  _nodeData?: ScriptData;
-  _updateNode?: (patch: Partial<ScriptData>) => void;
   onNodeComplete?: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function ScriptDetail({ _nodeData, _updateNode, onNodeComplete }: ScriptDetailProps) {
+export function ScriptDetail({ onNodeComplete }: ScriptDetailProps) {
   const { episodes } = useProjectStore();
   const episode = episodes[0];
 
