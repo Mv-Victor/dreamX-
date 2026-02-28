@@ -9,13 +9,16 @@ import type { CheckPointData } from '@/types/canvas';
 import { visualStyles } from '@/mock/visual-styles';
 
 interface CheckPointDetailProps {
-  nodeData: CheckPointData;
-  updateNode: (patch: Partial<CheckPointData>) => void;
+  _nodeData?: CheckPointData;
+  _updateNode?: (patch: Partial<CheckPointData>) => void;
   onNodeComplete?: () => void;
 }
 
-export function CheckPointDetail({ nodeData, updateNode, onNodeComplete }: CheckPointDetailProps) {
-  const data = nodeData;
+export function CheckPointDetail({ _nodeData, _updateNode, onNodeComplete }: CheckPointDetailProps) {
+  // TODO: Implement node data binding when backend integration is ready
+  // For now, using mock data
+  const data = _nodeData;
+  const updateNode = _updateNode || (() => {});
 
   return (
     <div className="p-5 space-y-5">
