@@ -16,6 +16,7 @@ import {
   Connection,
   Edge,
   Viewport,
+  type PaneMouseEvent,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useProjectStore } from '@/stores/project-store';
@@ -240,19 +241,17 @@ const CanvasInner = React.memo(function CanvasInner() {
     setSelectedNodeId(null);
   }, [setSelectedNodeId]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onPaneContextMenu = useCallback((event: any) => {
+  const { screenToFlowPosition } = useReactFlow();
+
+  const onPaneContextMenu = useCallback((event: PaneMouseEvent) => {
     event.preventDefault();
     setContextMenu({ x: event.clientX, y: event.clientY });
   }, []);
-
-  const { screenToFlowPosition } = useReactFlow();
 
   const handleAddNode = useCallback(
     (type: string) => {
       if (!contextMenu) return;
 
-      // Use React Flow API to convert screen coordinates to flow coordinates
       const position = screenToFlowPosition({ x: contextMenu.x, y: contextMenu.y });
 
       const newNode = {
